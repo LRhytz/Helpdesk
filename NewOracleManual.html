@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help Desk</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+
+  <!-- Logo -->
+  <img src="Images/Oracle.png" alt="My downloaded image" class="top-left">
+
+  <!-- Help Section with Search Bar -->
+  <div class="help-section">
+    <h2>What can we help you with?</h2>
+    <div class="search-container">
+        <img src="Icons/search.png" alt="Search Icon" class="search-icon">
+        <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchFunction()">
+    </div>
+</div>
+
+  <!-- Main Title 1: Working Instructions -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-1', 'arrow-1')">
+      <img src="Icons/information-pamphlet.png" class="icon">
+      <span>Working Instructions <span id="arrow-1" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-1">
+      <ul>
+          <!-- Receivables Dropdown -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('receivables-subtopics', 'arrow-receivables'); event.stopPropagation();">
+              Receivables <span id="arrow-receivables" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="receivables-subtopics">
+              <li><a href="pdfs/Transaction-type-and-receipt-activity.pdf" target="_blank">Transaction type and Receipt Activity</a></li>
+              <li><a href="pdfs/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
+              <li><a href="pdfs/How to Create AR Transation Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
+              <li><a href="pdfs/How to Interface AR Invoices.pdf" target="_blank">How to Interface AR Invoices</a></li>
+              <li><a href="pdfs/How to Interface AR Pay Modes.pdf" target="_blank">How to Interface AR Pay Modes</a></li>
+              <li><a href="pdfs/How to Interface Customer.pdf" target="_blank">How to Interface Customer</a></li>
+              <li><a href="pdfs/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
+              <li><a href="pdfs/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
+              <li><a href="pdfs/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
+            </ul>
+          </li>
+
+          <!-- Payables Dropdown -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('payables-subtopics', 'arrow-payables'); event.stopPropagation();">
+              Payables <span id="arrow-payables" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="payables-subtopics">
+              <li><a href="pdfs/Delegating PR Approval.pdf" target="_blank">Delegating PR Approval</a></li>
+              <li><a href="pdfs/APPROVING AR ADJUSTMENTS.pdf" target="_blank">Approving AR Adjustments</a></li>
+              <li><a href="pdfs/how-to-set-up-a-supplier.pdf" target="_blank">How to setup a supplier</a></li>
+              <li><a href="pdfs/lodging-and-communication-allowance.pdf" target="_blank">Lodging and Communication Allowance</a></li>
+              <li><a href="pdfs/How to Book a Debit Memo.pdf" target="_blank">How to Book a Debit Memo</a></li>
+              <li><a href="pdfs/How to Book a Prepayment.pdf" target="_blank">How to Book a Prepayment</a></li>
+              <li><a href="pdfs/How to Book a Standard Invoice .pdf" target="_blank">How to Book a Standard Invoice</a></li>
+              <li><a href="pdfs/How to Book an Expense Report.pdf" target="_blank">How to Book an Expense Report</a></li>
+              <li><a href="pdfs/How to Interface AP Invoice.pdf" target="_blank">How to Interface AP Invoice</a></li>
+              <li><a href="pdfs/How to Interface Non-Supplier (Non-Trade).pdf" target="_blank">How to Interface Non-Supplier (Non-Trade)</a></li>
+              <li><a href="pdfs/How to Interface Supplier (Trade).pdf" target="_blank">How to Interface Supplier (Trade)</a></li>
+              <li><a href="pdfs/How to Prepare a Prepayment.pdf" target="_blank">How to Prepare a Prepayment</a></li>
+              <li><a href="pdfs/How to Prepare a Refund.pdf" target="_blank">How to Prepare a Refund</a></li>
+              <li><a href="pdfs/How to Prepare an Online Payment .pdf" target="_blank">How to Prepare an Online Payment</a></li>
+              <li><a href="pdfs/How to Upload Check.pdf" target="_blank">How to Upload Check</a></li>
+              <li><a href="pdfs/How to Upload Payment.pdf" target="_blank">How to Upload Payment</a></li>
+              <li><a href="pdfs/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
+            </ul>
+          </li>
+
+          <!-- General Ledger Dropdown -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('gl-subtopics', 'arrow-gl'); event.stopPropagation();">
+              General Ledger <span id="arrow-gl" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="gl-subtopics">
+              <li><a href="pdfs/NT_Workflow_User Manual.pdf" target="_blank">NT Workflow User Manual</a></li>
+              <li><a href="pdfs/how-to-open-or-close-a-period.pdf" target="_blank">How to Open or Close a period</a></li>
+              <li><a href="pdfs/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
+              <li><a href="pdfs/how-to-create-chart-of-account.pdf" target="_blank">How to create Chart of Account</a></li>
+            </ul>
+          </li>
+
+          <!-- Fixed Asset -->
+          <li><a href="file3.html">Fixed Asset</a></li>
+
+          <!-- Purchasing Dropdown -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('purchasing-subtopics', 'arrow-purchasing'); event.stopPropagation();">
+              Purchasing <span id="arrow-purchasing" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="purchasing-subtopics">
+              <li><a href="pdfs/Creating Purchase Request.pdf" target="_blank">Creating Purchase Request</a></li>
+              <li><a href="pdfs/how-to-create-new-store-location.pdf" target="_blank">How to Create New Store Location</a></li>
+              <li><a href="pdfs/How to Approve Purchase Request V2.pdf" target="_blank">How to Approve Purchase Request V2</a></li>
+              <li><a href="pdfs/How to Approve Purchase Request.pdf" target="_blank">How to Approve Purchase Request</a></li>
+              <li><a href="pdfs/How to Auto Create Purchase Order V2.pdf" target="_blank">How to Auto Create Purchase Order V2</a></li>
+              <li><a href="pdfs/How to Auto Create Purchase Order.pdf" target="_blank">How to Auto Create Purchase Order</a></li>
+              <li><a href="pdfs/How to Close Purchase Request.pdf" target="_blank">How to Close Purchase Request</a></li>
+              <li><a href="pdfs/How to Create Purchase Request V2.pdf" target="_blank">How to Create Purchase Request V2</a></li>
+              <li><a href="pdfs/How to Create Purchase Request.pdf" target="_blank">How to Create Purchase Request</a></li>
+              <li><a href="pdfs/How to Delegate PR Approval V2.pdf" target="_blank">How to Delegate PR Approval V2</a></li>
+              <li><a href="pdfs/How to Generate Expenditure Request Form.pdf" target="_blank">How to Generate Expenditure Request Form</a></li>
+              <li><a href="pdfs/How to Generate Purchase Request .pdf" target="_blank">How to Generate Purchase Request</a></li>
+              <li><a href="pdfs/How to Receive Purchase Request in Oracle.pdf" target="_blank">How to Receive Purchase Request in Oracle</a></li>
+              <li><a href="pdfs/How to Return Received Purchase.pdf" target="_blank">How to Return Received Purchase</a></li>
+              <li><a href="pdfs/How to Setup a Supplier .pdf" target="_blank">How to Setup a Supplier</a></li>
+              <li><a href="pdfs/Receiving Purchase Request.pdf" target="_blank">Receiving Purchase Request</a></li>
+            </ul>
+          </li>
+
+          <!-- Oracle Guides Dropdown -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('oracle-guides-subtopics', 'arrow-oracle-guides'); event.stopPropagation();">
+              Oracle Guides <span id="arrow-oracle-guides" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="oracle-guides-subtopics">
+              <li><a href="pdfs/Mozilla Fix - PDF Automatically downloads when opened through the Helpdesk.pdf" target="_blank">Mozilla Fix - PDF Automatically downloads when open through Helpdesk</a></li>
+              <li><a href="pdfs/Rose Pharmacy Helpdesk Source Code Modification Manual.pdf" target="_blank">Rose Pharmacy Helpdesk Source Code Modification Manual</a></li>
+              <li><a href="pdfs/ORACLE USER INTERFACE NAVIGATION.pdf" target="_blank">Oracle User Interface Navigation</a></li>
+              <li><a href="pdfs/Oracle Interface Guide.pdf" target="_blank">Oracle Interface Guide</a></li>
+              <li><a href="pdfs/Oracle Reports Glossary.pdf" target="_blank">Oracle Reports Glossary</a></li>
+              <li><a href="pdfs/Other Guides for FBA.pdf" target="_blank">Other Guides for FBA</a></li>
+              <li><a href="pdfs/oracle-bugs-and-fixes.pdf" target="_blank">Oracle Bugs and Fixes</a></li>
+              <li><a href="pdfs/How to Create New Store Location.pdf" target="_blank">How to Create New Store Location</a></li>
+              <li><a href="pdfs/How to Create Oracle User Account .pdf" target="_blank">How to Create User Oracle Account</a></li>
+              <li><a href="pdfs/How to Login to Oracle .pdf" target="_blank">How to Login to Oracle</a></li>
+              <li><a href="pdfs/How to Login to Oracle V2.pdf" target="_blank">How to Login to Oracle V2</a></li>
+              <li><a href="pdfs/How to Reset Oracle Password .pdf" target="_blank">How to Reset Oracle Password</a></li>
+              <li><a href="pdfs/User Interface Navigation.pdf" target="_blank">User Interface Navigation</a></li>
+            </ul>
+          </li>
+      </ul>
+  </div>
+
+  <!-- Main Title 2: SOP -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-2', 'arrow-2')">
+      <img src="Icons/standard-operating-procedures.png" class="icon">
+      <span>SOP <span id="arrow-2" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-2">
+      <ul>
+          <!-- Finance Dropdown Added -->
+          <li>
+            <a href="#" onclick="toggleSubTopics('finance-subtopics', 'arrow-finance'); event.stopPropagation();">
+              Finance <span id="arrow-finance" class="dropdown-arrow">▼</span>
+            </a>
+            <ul class="nested-subtopics" id="finance-subtopics">
+              <li><a href="pdfs/How to Interface Payroll.pdf">How to Interface Payroll</a></li>
+              <li><a href="pdfs/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
+              <li><a href="pdfs/How to Generate BIR Form 2307.pdf">How to Generate BIR Form 2307</a></li>
+              <li><a href="pdfs/How to Generate Daily Collection Report.pdf">How to Generate Daily Collection Report</a></li>
+              <li><a href="pdfs/How to Interface Buying Income.pdf">How to Interface Buying Income</a></li>
+              <li><a href="pdfs/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
+              <li><a href="pdfs/How to Interface RTV.pdf">How to Interface RTV</a></li>
+              <li><a href="pdfs/How to Interface Sales.pdf">How to Interface Sales</a></li>
+              <li><a href="pdfs/How to Setup Bank Account.pdf">How to Setup Bank Account</a></li>
+              <li><a href="pdfs/How to Upload Payment.pdf">How to Upload Payment</a></li>
+            </ul>
+          </li>
+          <!-- Treasury remains as a simple link -->
+          <li><a href="#" onclick="toggleSubTopics('treasury-subtopics', 'arrow-finance'); event.stopPropagation();">
+            Treasury <span id="arrow-treasury" class="dropdown-arrow">▼</span>
+          </a>
+          <ul class="nested-subtopics" id="treasury-subtopics">
+            <li><a href="pdfs/How to Setup Customer.pdf">How to Setup Customer</a></li>
+            <li><a href="pdfs/How to Setup Item Code.pdf">How to Setup Item Code </a></li>
+            <li><a href="pdfs/How to Setup Quotation.pdf">How to Setup Quotation</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+
+  <!-- Main Title 3: Process Flow -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-3', 'arrow-3')">
+      <img src="Icons/workflow.png" class="icon">
+      <span>Process Flow <span id="arrow-3" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-3">
+      <ul>
+          <li><a href="file7.html">Process Step 1</a></li>
+          <li><a href="file8.html">Process Step 2</a></li>
+      </ul>
+  </div>
+
+  <script>
+    function searchFunction() {
+        let input = document.getElementById("search-bar").value.toLowerCase();
+        let topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
+        topics.forEach(topic => {
+            let text = topic.textContent.toLowerCase();
+            let parentContainer = topic.closest(".subtopics-container");
+            let title = parentContainer ? parentContainer.previousElementSibling : null;
+            let arrow = title ? title.querySelector(".dropdown-arrow") : null;
+            if (text.includes(input)) {
+                topic.style.display = "block";
+                if (parentContainer && input !== "") {
+                    parentContainer.classList.add("show");
+                    if (arrow) arrow.textContent = "▲";
+                }
+            } else {
+                topic.style.display = "none";
+            }
+        });
+        if (input === "") {
+            document.querySelectorAll(".subtopics-container").forEach(container => {
+                let title = container.previousElementSibling;
+                let arrow = title.querySelector(".dropdown-arrow");
+                container.classList.remove("show");
+                title.classList.remove("icon-left");
+                if (arrow) arrow.textContent = "▼";
+            });
+            document.querySelectorAll(".main-title").forEach(title => {
+                title.classList.remove("icon-left");
+            });
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      let links = document.querySelectorAll(".subtopics-container ul li a");
+      links.forEach(link => {
+          if (!link.dataset.iconAdded) {
+              if (link.href.endsWith(".pdf")) {
+                  link.innerHTML = "📄 " + link.innerHTML;
+              } else {
+                  link.innerHTML = "🔗 " + link.innerHTML;
+              }
+              link.dataset.iconAdded = "true";
+          }
+      });
+    });
+
+    // Function to toggle dropdowns (including nested lists)
+    function toggleSubTopics(contentId, arrowId, event) {
+      if (event) event.preventDefault();
+      let subtopics = document.getElementById(contentId);
+      let arrow = document.getElementById(arrowId);
+      subtopics.classList.toggle("show");
+      if (arrow) {
+        arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+      }
+    }
+  </script>
+
+</body>
+</html>
