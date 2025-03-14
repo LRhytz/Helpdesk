@@ -181,7 +181,7 @@
   </div>
 
   <script>
-    function searchFunction() {
+    window.searchFunction = function () {
         let input = document.getElementById("search-bar").value.toLowerCase();
         let topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
         topics.forEach(topic => {
@@ -228,7 +228,7 @@
     });
 
     // Function to toggle dropdowns (including nested lists)
-    function toggleSubTopics(contentId, arrowId, event) {
+    window.toggleSubTopics = function (contentId, arrowId, event) {
       if (event) event.preventDefault();
       let subtopics = document.getElementById(contentId);
       let arrow = document.getElementById(arrowId);
@@ -238,6 +238,5 @@
       }
     }
   </script>
-
 </body>
 </html>
