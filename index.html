@@ -224,7 +224,7 @@
   </script>
 
   <script>
-    // Expand all parent containers up the chain
+    // Step 1: Expand all parent containers up the chain if subtopic matches
     function expandAllParents(topic) {
       var container = topic.closest(".subtopics-container");
       while (container) {
@@ -235,28 +235,30 @@
         if (arrow) {
           arrow.textContent = "▲";
         }
-        // move up to the parent container
+        // Move up to the parent .subtopics-container
         container = container.parentElement ? container.parentElement.closest(".subtopics-container") : null;
       }
     }
 
-    window.searchFunction = function () {
+    window.searchFunction = function() {
       var input = document.getElementById("search-bar").value.toLowerCase();
-      var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-      topics.forEach(function(topic) {
+      var allTopics = document.querySelectorAll(".main-title, .subtopics-container ul li");
+
+      // 1) Hide or show subtopics based on search, and expand parents for matches
+      allTopics.forEach(function(topic) {
         var text = (topic.textContent || topic.innerText).toLowerCase();
-        if (text.includes(input)) {
+        if (text.includes(input) && input !== "") {
           topic.style.display = "block";
-          if (input !== "") {
-            // Expand all parent containers
-            expandAllParents(topic);
-          }
+          expandAllParents(topic);
+        } else if (input === "") {
+          // If search is cleared, reset to "block"
+          topic.style.display = "block";
         } else {
           topic.style.display = "none";
         }
       });
 
-      // If search is empty, collapse everything
+      // 2) If input is empty, collapse everything
       if (input === "") {
         var allContainers = document.querySelectorAll(".subtopics-container");
         allContainers.forEach(function(container) {
@@ -266,14 +268,28 @@
           var arrow = title ? title.querySelector(".dropdown-arrow") : null;
           if (arrow) { arrow.textContent = "▼"; }
         });
-        var allMainTitles = document.querySelectorAll(".main-title");
-        allMainTitles.forEach(function(title) {
-          title.classList.remove("icon-left");
-        });
+        return;
       }
+
+      // 3) Hide main titles that have zero matching (visible) subtopics
+      var mainTitles = document.querySelectorAll(".main-title");
+      mainTitles.forEach(function(title) {
+        var subtopicsContainer = title.nextElementSibling; // the .subtopics-container
+        if (!subtopicsContainer) return;
+        var visibleSubtopics = subtopicsContainer.querySelectorAll("li[style*='display: block']");
+        // If no subtopics are visible, hide this main title
+        if (visibleSubtopics.length === 0) {
+          title.style.display = "none";
+          subtopicsContainer.classList.remove("show");
+        } else {
+          // Show main title if it has at least 1 visible subtopic
+          title.style.display = "block";
+        }
+      });
     };
 
-    document.addEventListener("DOMContentLoaded", function () {
+    // On page load, add icons to .pdf links
+    document.addEventListener("DOMContentLoaded", function() {
       var links = document.querySelectorAll(".subtopics-container ul li a");
       links.forEach(function(link) {
         if (!link.dataset.iconAdded) {
@@ -287,9 +303,9 @@
       });
     });
 
-    // Dropdown toggle (unchanged except for standard function)
-    window.toggleSubTopics = function (contentId, arrowId, event) {
-      if (event) event.preventDefault();
+    // Dropdown toggle function (unchanged)
+    window.toggleSubTopics = function(contentId, arrowId, event) {
+      if (event) { event.preventDefault(); }
       var subtopics = document.getElementById(contentId);
       var arrow = document.getElementById(arrowId);
       subtopics.classList.toggle("show");
