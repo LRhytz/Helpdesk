@@ -180,13 +180,13 @@
       </ul>
   </div>
 
-  <!-- Polyfills for IE/IE‑mode -->
+  <!-- Minimal Polyfills for IE/IE-mode -->
   <script>
-    // Polyfill for NodeList.forEach()
+    // NodeList.forEach
     if (window.NodeList && !NodeList.prototype.forEach) {
       NodeList.prototype.forEach = Array.prototype.forEach;
     }
-    // Polyfill for String.includes()
+    // String.includes
     if (!String.prototype.includes) {
       String.prototype.includes = function(search, start) {
         if (typeof start !== 'number') {
@@ -198,7 +198,7 @@
         return this.indexOf(search, start) !== -1;
       };
     }
-    // Polyfill for String.endsWith()
+    // String.endsWith
     if (!String.prototype.endsWith) {
       String.prototype.endsWith = function(searchStr, position) {
         var subjectString = this.toString();
@@ -210,7 +210,7 @@
         return lastIndex !== -1 && lastIndex === position;
       };
     }
-    // Polyfill for Element.closest()
+    // Element.closest
     if (!Element.prototype.closest) {
       Element.prototype.closest = function(s) {
         var el = this;
@@ -224,66 +224,77 @@
   </script>
 
   <script>
-    // Use traditional for loops for IE compatibility
-    window.searchFunction = function() {
+    // Expand all parent containers up the chain
+    function expandAllParents(topic) {
+      var container = topic.closest(".subtopics-container");
+      while (container) {
+        container.classList.add("show");
+        var arrow = container.previousElementSibling
+                     ? container.previousElementSibling.querySelector(".dropdown-arrow")
+                     : null;
+        if (arrow) {
+          arrow.textContent = "▲";
+        }
+        // move up to the parent container
+        container = container.parentElement ? container.parentElement.closest(".subtopics-container") : null;
+      }
+    }
+
+    window.searchFunction = function () {
       var input = document.getElementById("search-bar").value.toLowerCase();
       var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-      for (var i = 0; i < topics.length; i++) {
-          var topic = topics[i];
-          var text = topic.textContent || topic.innerText;
-          text = text.toLowerCase();
-          var parentContainer = topic.closest(".subtopics-container");
-          var title = parentContainer ? parentContainer.previousElementSibling : null;
-          var arrow = title ? title.querySelector(".dropdown-arrow") : null;
-          if (text.includes(input)) {
-              topic.style.display = "block";
-              if (parentContainer && input !== "") {
-                  parentContainer.classList.add("show");
-                  if (arrow) { arrow.textContent = "▲"; }
-              }
-          } else {
-              topic.style.display = "none";
+      topics.forEach(function(topic) {
+        var text = (topic.textContent || topic.innerText).toLowerCase();
+        if (text.includes(input)) {
+          topic.style.display = "block";
+          if (input !== "") {
+            // Expand all parent containers
+            expandAllParents(topic);
           }
-      }
+        } else {
+          topic.style.display = "none";
+        }
+      });
+
+      // If search is empty, collapse everything
       if (input === "") {
-          var containers = document.querySelectorAll(".subtopics-container");
-          for (var j = 0; j < containers.length; j++) {
-              var container = containers[j];
-              var title = container.previousElementSibling;
-              var arrow = title ? title.querySelector(".dropdown-arrow") : null;
-              container.classList.remove("show");
-              if (title) { title.classList.remove("icon-left"); }
-              if (arrow) { arrow.textContent = "▼"; }
-          }
-          var mainTitles = document.querySelectorAll(".main-title");
-          for (var k = 0; k < mainTitles.length; k++) {
-              mainTitles[k].classList.remove("icon-left");
-          }
+        var allContainers = document.querySelectorAll(".subtopics-container");
+        allContainers.forEach(function(container) {
+          container.classList.remove("show");
+          var title = container.previousElementSibling;
+          if (title) { title.classList.remove("icon-left"); }
+          var arrow = title ? title.querySelector(".dropdown-arrow") : null;
+          if (arrow) { arrow.textContent = "▼"; }
+        });
+        var allMainTitles = document.querySelectorAll(".main-title");
+        allMainTitles.forEach(function(title) {
+          title.classList.remove("icon-left");
+        });
       }
     };
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       var links = document.querySelectorAll(".subtopics-container ul li a");
-      for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          if (!link.dataset.iconAdded) {
-              if (link.href.endsWith(".pdf")) {
-                  link.innerHTML = "📄 " + link.innerHTML;
-              } else {
-                  link.innerHTML = "🔗 " + link.innerHTML;
-              }
-              link.dataset.iconAdded = "true";
+      links.forEach(function(link) {
+        if (!link.dataset.iconAdded) {
+          if (link.href.endsWith(".pdf")) {
+            link.innerHTML = "📄 " + link.innerHTML;
+          } else {
+            link.innerHTML = "🔗 " + link.innerHTML;
           }
-      }
+          link.dataset.iconAdded = "true";
+        }
+      });
     });
 
-    window.toggleSubTopics = function(contentId, arrowId, event) {
-      if (event) { event.preventDefault(); }
+    // Dropdown toggle (unchanged except for standard function)
+    window.toggleSubTopics = function (contentId, arrowId, event) {
+      if (event) event.preventDefault();
       var subtopics = document.getElementById(contentId);
       var arrow = document.getElementById(arrowId);
       subtopics.classList.toggle("show");
       if (arrow) {
-          arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+        arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
       }
     };
   </script>
