@@ -17,7 +17,7 @@
         <img src="Icons/search.png" alt="Search Icon" class="search-icon">
         <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchFunction()">
     </div>
-  </div>
+</div>
 
   <!-- Main Title 1: Working Instructions -->
   <div class="main-title" onclick="toggleSubTopics('subtopics-1', 'arrow-1')">
@@ -65,7 +65,10 @@
               <li><a href="pdfs/How to Prepare an Online Payment .pdf" target="_blank">How to Prepare an Online Payment</a></li>
               <li><a href="pdfs/How to Upload Check.pdf" target="_blank">How to Upload Check</a></li>
               <li><a href="pdfs/How to Upload Payment.pdf" target="_blank">How to Upload Payment</a></li>
+              <li><a href="pdfs/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
               <li><a href="pdfs/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
+              <li><a href="pdfs/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
+              <li><a href="pdfs/How to Upload Payment.pdf">How to Upload Payment</a></li>
             </ul>
           </li>
 
@@ -75,6 +78,8 @@
               General Ledger <span id="arrow-gl" class="dropdown-arrow">▼</span>
             </a>
             <ul class="nested-subtopics" id="gl-subtopics">
+              <li><a href="pdfs/How to Interface Sales.pdf">How to Interface Sales</a></li>
+              <li><a href="pdfs/How to Interface Payroll.pdf">How to Interface Payroll</a></li>
               <li><a href="pdfs/NT_Workflow_User Manual.pdf" target="_blank">NT Workflow User Manual</a></li>
               <li><a href="pdfs/how-to-open-or-close-a-period.pdf" target="_blank">How to Open or Close a period</a></li>
               <li><a href="pdfs/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
@@ -143,16 +148,11 @@
               Finance <span id="arrow-finance" class="dropdown-arrow">▼</span>
             </a>
             <ul class="nested-subtopics" id="finance-subtopics">
-              <li><a href="pdfs/How to Interface Payroll.pdf">How to Interface Payroll</a></li>
-              <li><a href="pdfs/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
               <li><a href="pdfs/How to Generate BIR Form 2307.pdf">How to Generate BIR Form 2307</a></li>
               <li><a href="pdfs/How to Generate Daily Collection Report.pdf">How to Generate Daily Collection Report</a></li>
               <li><a href="pdfs/How to Interface Buying Income.pdf">How to Interface Buying Income</a></li>
-              <li><a href="pdfs/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
               <li><a href="pdfs/How to Interface RTV.pdf">How to Interface RTV</a></li>
-              <li><a href="pdfs/How to Interface Sales.pdf">How to Interface Sales</a></li>
               <li><a href="pdfs/How to Setup Bank Account.pdf">How to Setup Bank Account</a></li>
-              <li><a href="pdfs/How to Upload Payment.pdf">How to Upload Payment</a></li>
             </ul>
           </li>
           <!-- Treasury remains as a simple link -->
@@ -180,74 +180,64 @@
       </ul>
   </div>
 
-  <!--[if IE]><script>
-  // 1) Polyfill for Element.matches, closest()
-  if (!Element.prototype.matches) {
-    Element.prototype.matches = Element.prototype.msMatchesSelector ||
-                                Element.prototype.webkitMatchesSelector;
-  }
-  if (!Element.prototype.closest) {
-    Element.prototype.closest = function(s) {
-      var el = this;
-      do {
-        if (el.matches(s)) return el;
-        el = el.parentElement || el.parentNode;
-      } while (el !== null && el.nodeType === 1);
-      return null;
-    };
-  }
-
-  // 2) Polyfill for NodeList.forEach()
-  //    (IE 11 supports Array.forEach but not NodeList.forEach)
-  if (window.NodeList && !NodeList.prototype.forEach) {
-    NodeList.prototype.forEach = Array.prototype.forEach;
-  }
-</script><![endif]-->
+  <!-- 1) Polyfill for NodeList.forEach() and 2) Polyfill for String.endsWith() -->
+  <script>
+    // Polyfill for NodeList.forEach (IE11/IE-mode)
+    if (window.NodeList && !NodeList.prototype.forEach) {
+      NodeList.prototype.forEach = Array.prototype.forEach;
+    }
+    // Polyfill for String.endsWith (IE11/IE-mode)
+    if (!String.prototype.endsWith) {
+      String.prototype.endsWith = function(searchStr, position) {
+        var subjectString = this.toString();
+        if (position === undefined || position > subjectString.length) {
+          position = subjectString.length;
+        }
+        position -= searchStr.length;
+        var lastIndex = subjectString.indexOf(searchStr, position);
+        return lastIndex !== -1 && lastIndex === position;
+      };
+    }
+  </script>
 
   <script>
-    // searchFunction with IE-friendly "includes" -> replaced with indexOf() 
     window.searchFunction = function () {
-        var input = document.getElementById("search-bar").value.toLowerCase();
-        var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-        topics.forEach(function(topic) {
-            var text = topic.textContent.toLowerCase();
-            var parentContainer = topic.closest(".subtopics-container");
-            var title = parentContainer ? parentContainer.previousElementSibling : null;
-            var arrow = title ? title.querySelector(".dropdown-arrow") : null;
-
-            // Instead of text.includes(input):
-            if (text.indexOf(input) !== -1) {
+        let input = document.getElementById("search-bar").value.toLowerCase();
+        let topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
+        topics.forEach(topic => {
+            let text = topic.textContent.toLowerCase();
+            let parentContainer = topic.closest(".subtopics-container");
+            let title = parentContainer ? parentContainer.previousElementSibling : null;
+            let arrow = title ? title.querySelector(".dropdown-arrow") : null;
+            if (text.includes(input)) {
                 topic.style.display = "block";
                 if (parentContainer && input !== "") {
                     parentContainer.classList.add("show");
-                    if (arrow) { arrow.textContent = "▲"; }
+                    if (arrow) arrow.textContent = "▲";
                 }
             } else {
                 topic.style.display = "none";
             }
         });
-
         if (input === "") {
-            document.querySelectorAll(".subtopics-container").forEach(function(container) {
-                var title = container.previousElementSibling;
-                var arrow = title.querySelector(".dropdown-arrow");
+            document.querySelectorAll(".subtopics-container").forEach(container => {
+                let title = container.previousElementSibling;
+                let arrow = title.querySelector(".dropdown-arrow");
                 container.classList.remove("show");
                 title.classList.remove("icon-left");
-                if (arrow) { arrow.textContent = "▼"; }
+                if (arrow) arrow.textContent = "▼";
             });
-            document.querySelectorAll(".main-title").forEach(function(title) {
+            document.querySelectorAll(".main-title").forEach(title => {
                 title.classList.remove("icon-left");
             });
         }
-    };
+    }; 
 
     document.addEventListener("DOMContentLoaded", function () {
-      var links = document.querySelectorAll(".subtopics-container ul li a");
-      links.forEach(function(link) {
+      let links = document.querySelectorAll(".subtopics-container ul li a");
+      links.forEach(link => {
           if (!link.dataset.iconAdded) {
-              // Instead of link.href.endsWith(".pdf"), do a simple check:
-              var hrefLower = link.href.toLowerCase();
-              if (hrefLower.indexOf(".pdf") === hrefLower.length - 4) {
+              if (link.href.endsWith(".pdf")) {
                   link.innerHTML = "📄 " + link.innerHTML;
               } else {
                   link.innerHTML = "🔗 " + link.innerHTML;
@@ -259,9 +249,9 @@
 
     // Function to toggle dropdowns (including nested lists)
     window.toggleSubTopics = function (contentId, arrowId, event) {
-      if (event) { event.preventDefault(); }
-      var subtopics = document.getElementById(contentId);
-      var arrow = document.getElementById(arrowId);
+      if (event) event.preventDefault();
+      let subtopics = document.getElementById(contentId);
+      let arrow = document.getElementById(arrowId);
       subtopics.classList.toggle("show");
       if (arrow) {
         arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
