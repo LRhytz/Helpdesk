@@ -180,19 +180,13 @@
       </ul>
   </div>
 
-  <!-- 
-    POLYFILLS for IE/IE-mode:
-    1) NodeList.forEach
-    2) String.includes
-    3) String.endsWith
-    4) Element.closest
-  -->
+  <!-- Polyfills for IE/IE‑mode -->
   <script>
-    // 1) NodeList.forEach()
+    // Polyfill for NodeList.forEach()
     if (window.NodeList && !NodeList.prototype.forEach) {
       NodeList.prototype.forEach = Array.prototype.forEach;
     }
-    // 2) String.includes()
+    // Polyfill for String.includes()
     if (!String.prototype.includes) {
       String.prototype.includes = function(search, start) {
         if (typeof start !== 'number') {
@@ -204,7 +198,7 @@
         return this.indexOf(search, start) !== -1;
       };
     }
-    // 3) String.endsWith()
+    // Polyfill for String.endsWith()
     if (!String.prototype.endsWith) {
       String.prototype.endsWith = function(searchStr, position) {
         var subjectString = this.toString();
@@ -216,7 +210,7 @@
         return lastIndex !== -1 && lastIndex === position;
       };
     }
-    // 4) Element.closest()
+    // Polyfill for Element.closest()
     if (!Element.prototype.closest) {
       Element.prototype.closest = function(s) {
         var el = this;
@@ -230,16 +224,17 @@
   </script>
 
   <script>
-    // Converted arrow functions to regular functions for IE compatibility
+    // Use traditional for loops for IE compatibility
     window.searchFunction = function() {
       var input = document.getElementById("search-bar").value.toLowerCase();
       var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-      topics.forEach(function(topic) {
-          var text = topic.textContent.toLowerCase();
+      for (var i = 0; i < topics.length; i++) {
+          var topic = topics[i];
+          var text = topic.textContent || topic.innerText;
+          text = text.toLowerCase();
           var parentContainer = topic.closest(".subtopics-container");
           var title = parentContainer ? parentContainer.previousElementSibling : null;
           var arrow = title ? title.querySelector(".dropdown-arrow") : null;
-          // uses polyfilled .includes()
           if (text.includes(input)) {
               topic.style.display = "block";
               if (parentContainer && input !== "") {
@@ -249,28 +244,29 @@
           } else {
               topic.style.display = "none";
           }
-      });
+      }
       if (input === "") {
-          var allContainers = document.querySelectorAll(".subtopics-container");
-          allContainers.forEach(function(container) {
+          var containers = document.querySelectorAll(".subtopics-container");
+          for (var j = 0; j < containers.length; j++) {
+              var container = containers[j];
               var title = container.previousElementSibling;
-              var arrow = title.querySelector(".dropdown-arrow");
+              var arrow = title ? title.querySelector(".dropdown-arrow") : null;
               container.classList.remove("show");
-              title.classList.remove("icon-left");
+              if (title) { title.classList.remove("icon-left"); }
               if (arrow) { arrow.textContent = "▼"; }
-          });
-          var allMainTitles = document.querySelectorAll(".main-title");
-          allMainTitles.forEach(function(title) {
-              title.classList.remove("icon-left");
-          });
+          }
+          var mainTitles = document.querySelectorAll(".main-title");
+          for (var k = 0; k < mainTitles.length; k++) {
+              mainTitles[k].classList.remove("icon-left");
+          }
       }
     };
 
     document.addEventListener("DOMContentLoaded", function() {
       var links = document.querySelectorAll(".subtopics-container ul li a");
-      links.forEach(function(link) {
+      for (var i = 0; i < links.length; i++) {
+          var link = links[i];
           if (!link.dataset.iconAdded) {
-              // uses polyfilled .endsWith()
               if (link.href.endsWith(".pdf")) {
                   link.innerHTML = "📄 " + link.innerHTML;
               } else {
@@ -278,17 +274,16 @@
               }
               link.dataset.iconAdded = "true";
           }
-      });
+      }
     });
 
-    // The dropdown toggle code (unchanged except arrow function -> function)
     window.toggleSubTopics = function(contentId, arrowId, event) {
       if (event) { event.preventDefault(); }
       var subtopics = document.getElementById(contentId);
       var arrow = document.getElementById(arrowId);
       subtopics.classList.toggle("show");
       if (arrow) {
-        arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+          arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
       }
     };
   </script>
