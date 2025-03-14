@@ -65,7 +65,10 @@
               <li><a href="pdfs/How to Prepare an Online Payment .pdf" target="_blank">How to Prepare an Online Payment</a></li>
               <li><a href="pdfs/How to Upload Check.pdf" target="_blank">How to Upload Check</a></li>
               <li><a href="pdfs/How to Upload Payment.pdf" target="_blank">How to Upload Payment</a></li>
+              <li><a href="pdfs/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
               <li><a href="pdfs/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
+              <li><a href="pdfs/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
+              <li><a href="pdfs/How to Upload Payment.pdf">How to Upload Payment</a></li>
             </ul>
           </li>
 
@@ -75,6 +78,8 @@
               General Ledger <span id="arrow-gl" class="dropdown-arrow">▼</span>
             </a>
             <ul class="nested-subtopics" id="gl-subtopics">
+              <li><a href="pdfs/How to Interface Sales.pdf">How to Interface Sales</a></li>
+              <li><a href="pdfs/How to Interface Payroll.pdf">How to Interface Payroll</a></li>
               <li><a href="pdfs/NT_Workflow_User Manual.pdf" target="_blank">NT Workflow User Manual</a></li>
               <li><a href="pdfs/how-to-open-or-close-a-period.pdf" target="_blank">How to Open or Close a period</a></li>
               <li><a href="pdfs/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
@@ -123,7 +128,7 @@
               <li><a href="pdfs/How to Create New Store Location.pdf" target="_blank">How to Create New Store Location</a></li>
               <li><a href="pdfs/How to Create Oracle User Account .pdf" target="_blank">How to Create User Oracle Account</a></li>
               <li><a href="pdfs/HOW TO LOG-IN TO ORACLE.pdf" target="_blank">How to Login to Oracle</a></li>
-              <li><a href="pdfs/How to Reset Oracle Password .pdf" target="_blank">How to Reset Oracle Password</a></li>
+              <li><a href="pdfs/How to Reset Oracle Password.pdf" target="_blank">How to Reset Oracle Password</a></li>
               <li><a href="pdfs/User Interface Navigation.pdf" target="_blank">User Interface Navigation</a></li>
             </ul>
           </li>
@@ -143,16 +148,11 @@
               Finance <span id="arrow-finance" class="dropdown-arrow">▼</span>
             </a>
             <ul class="nested-subtopics" id="finance-subtopics">
-              <li><a href="pdfs/How to Interface Payroll.pdf">How to Interface Payroll</a></li>
-              <li><a href="pdfs/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
               <li><a href="pdfs/How to Generate BIR Form 2307.pdf">How to Generate BIR Form 2307</a></li>
               <li><a href="pdfs/How to Generate Daily Collection Report.pdf">How to Generate Daily Collection Report</a></li>
               <li><a href="pdfs/How to Interface Buying Income.pdf">How to Interface Buying Income</a></li>
-              <li><a href="pdfs/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
               <li><a href="pdfs/How to Interface RTV.pdf">How to Interface RTV</a></li>
-              <li><a href="pdfs/How to Interface Sales.pdf">How to Interface Sales</a></li>
               <li><a href="pdfs/How to Setup Bank Account.pdf">How to Setup Bank Account</a></li>
-              <li><a href="pdfs/How to Upload Payment.pdf">How to Upload Payment</a></li>
             </ul>
           </li>
           <!-- Treasury remains as a simple link -->
@@ -211,7 +211,7 @@
                 title.classList.remove("icon-left");
             });
         }
-    }
+    }; 
 
     document.addEventListener("DOMContentLoaded", function () {
       let links = document.querySelectorAll(".subtopics-container ul li a");
@@ -236,7 +236,7 @@
       if (arrow) {
         arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
       }
-    }
+    };
   </script>
 </body>
 </html>
