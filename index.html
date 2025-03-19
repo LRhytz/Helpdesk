@@ -138,7 +138,7 @@
   <!-- Main Title 2: SOP -->
   <div class="main-title" onclick="toggleSubTopics('subtopics-2', 'arrow-2')">
       <img src="Icons/standard-operating-procedures.png" class="icon">
-      <span>SOP <span id="arrow-2" class="dropdown-arrow">▼</span></span>
+      <span>SOP<span id="arrow-2" class="dropdown-arrow">▼</span></span>
   </div>
   <div class="subtopics-container" id="subtopics-2">
       <ul>
@@ -168,7 +168,40 @@
       </ul>
   </div>
 
-  <!-- Main Title 3: Process Flow -->
+  <!-- Main Title 3: BRS -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-3', 'arrow-3')">
+    <img src="Icons/reconciliation.png" class="icon">
+    <span>BRS<span id="arrow-3" class="dropdown-arrow">▼</span></span>
+</div>
+<div class="subtopics-container" id="subtopics-3">
+
+</div>
+
+<!-- Main Title 4: Functional Specifications -->
+<div class="main-title" onclick="toggleSubTopics('subtopics-4', 'arrow-4')">
+  <img src="Icons/design-resources.png" class="icon">
+  <span>Functional Specifications<span id="arrow-4" class="dropdown-arrow">▼</span></span>
+</div>
+<div class="subtopics-container" id="subtopics-4">
+  <ul>
+      <!-- Accounts Payable and Financial Workflow Enhancements remains as a simple link -->
+      <li><a href="#" onclick="toggleSubTopics('AP_Financial-subtopics', 'arrow-finance'); event.stopPropagation();">
+        Accounts Payable and Financial Workflow Enhancements <span id="arrow-treasury" class="dropdown-arrow">▼</span>
+      </a>
+      <ul class="nested-subtopics" id="AP_Financial-subtopics">
+        <li><a href="pdfs/AP Invoice Listing.pdf">AP Invoice Listing</a></li>
+        <li><a href="pdfs/AP Vendor Interface Enhancement.pdf">AP Vendor Interface Enhancement</a></li>
+        <li><a href="pdfs/Auto-Email_PA_2307_NP.pdf">Auto Email PA 2307 NP</a></li>
+        <li><a href="pdfs/Service Invoice.pdf">Service Invoice</a></li>
+        <li><a href="pdfs/HSBC Pesonet Enhancement.pdf">HSBC PESONET Enhancement</a></li>
+        <li><a href="pdfs/Metrobank Online Solution Bank File.pdf">Metrobank Online Solution Bank File</a></li>
+        <li><a href="pdfs/Budget Monitoring Workflow.pdf">Budget Monitoring Workflow</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+  <!-- Main Title 5: Process Flow -->
   <div class="main-title" onclick="toggleSubTopics('subtopics-3', 'arrow-3')">
       <img src="Icons/workflow.png" class="icon">
       <span>Process Flow <span id="arrow-3" class="dropdown-arrow">▼</span></span>
