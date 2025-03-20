@@ -14,7 +14,7 @@ body {
 .top-left {
     width: 220px;
     height: auto;
-    margin: 20px auto;
+    margin: 2px auto;
     display: block;
 }
 
@@ -30,9 +30,10 @@ body {
     margin-bottom: 15px;
 }
 
+/* Search Container */
 .search-container {
     position: relative;
-    width: 45%; /* match width of main titles for balance */
+    width: 45%;
     margin: 0 auto;
 }
 
@@ -51,7 +52,7 @@ body {
 /* Search Bar */
 #search-bar {
     width: 100%;
-    padding: 12px 16px 12px 44px; /* extra left padding for the icon */
+    padding: 12px 16px 12px 44px;
     font-size: 16px;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -97,21 +98,22 @@ body {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.3s ease;
     margin: 0 auto;
     width: 55%;
     background: #fff;
-    padding: 0 12px;  /* minimal padding while collapsed */
+    padding: 0 12px;
     border-radius: 8px;
     border: 1px solid #ddd;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Expand Dropdown */
+/* Fix for Dynamic Height Change Issue */
 .subtopics-container.show {
     max-height: 9999px;
     opacity: 1;
-    padding: 12px;
+    padding: 12px; 
+    transition: max-height 0.6s ease-in-out, padding 0.3s ease;
 }
 
 /* Subtopics List */
@@ -158,6 +160,15 @@ body {
 .nested-subtopics.show {
     max-height: 9999px;
     opacity: 1;
+}
+
+/* Fix for Expanded Height Issue After Search */
+.subtopics-container.show ul {
+    display: block !important;
+}
+
+.subtopics-container:not(.show) ul {
+    display: none;
 }
 
 /* Icons */
