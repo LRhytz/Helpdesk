@@ -1,11 +1,3 @@
-<?php
-// IMPORTANT: rename your original index.html to index.php
-// Place this file in your "helpdesk" folder under XAMPP's htdocs.
-
-// We have NOT removed any lines from your original code. 
-// The only change is that each subtopic's PHP snippet uses pathinfo()
-// to strip off the file extension when displaying uploaded files.
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +33,7 @@
           Receivables <span id="arrow-wi-receivables" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-receivables-subtopics">
+          <!-- Static PDF links remain as is -->
           <li><a href="pdfs/working_instructions/receivables/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Create AR Transation Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface AR Invoices.pdf" target="_blank">How to Interface AR Invoices</a></li>
@@ -49,19 +42,7 @@
           <li><a href="pdfs/working_instructions/receivables/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
-
-          <!-- Dynamically list newly uploaded files for Receivables (extension removed) -->
-          <?php
-          $dir = 'uploads/wi-receivables-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  // Remove extension for display
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
 
@@ -91,18 +72,7 @@
           <li><a href="pdfs/working_instructions/payables/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Upload Payment.pdf">How to Upload Payment</a></li>
-
-          <!-- Dynamically list newly uploaded files for Payables (extension removed) -->
-          <?php
-          $dir = 'uploads/wi-payables-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
 
@@ -118,18 +88,7 @@
           <li><a href="pdfs/working_instructions/general_ledger/How to Open or Close a Period.pdf" target="_blank">How to Open or Close a period</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Chart of Account.pdf" target="_blank">How to create Chart of Account</a></li>
-
-          <!-- Dynamically list newly uploaded files for GL (extension removed) -->
-          <?php
-          $dir = 'uploads/wi-gl-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
 
@@ -154,18 +113,7 @@
           <li><a href="pdfs/working_instructions/purchasing/How to Receive Purchase Request in Oracle.pdf" target="_blank">How to Receive Purchase Request in Oracle</a></li>
           <li><a href="pdfs/working_instructions/purchasing/How to Return Received Purchase.pdf" target="_blank">How to Return Received Purchase</a></li>
           <li><a href="pdfs/working_instructions/purchasing/Receiving Purchase Request.pdf" target="_blank">Receiving Purchase Request</a></li>
-
-          <!-- Dynamically list newly uploaded files for Purchasing (extension removed) -->
-          <?php
-          $dir = 'uploads/wi-purchasing-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
 
@@ -187,18 +135,7 @@
           <li><a href="pdfs/working_instructions/oracle_guides/HOW TO LOG-IN TO ORACLE.pdf" target="_blank">How to Login to Oracle</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/How to Reset Oracle Password .pdf" target="_blank">How to Reset Oracle Password</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/User Interface Navigation.pdf" target="_blank">User Interface Navigation</a></li>
-
-          <!-- Dynamically list newly uploaded files for Oracle Guides (extension removed) -->
-          <?php
-          $dir = 'uploads/wi-oracle-guides-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
     </ul>
@@ -222,18 +159,7 @@
           <li><a href="pdfs/How to Interface Buying Income.pdf" target="_blank">How to Interface Buying Income</a></li>
           <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
           <li><a href="pdfs/How to Setup Bank Account.pdf" target="_blank">How to Setup Bank Account</a></li>
-
-          <!-- Dynamically list newly uploaded files for SOP Finance (extension removed) -->
-          <?php
-          $dir = 'uploads/sop-finance-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
       <!-- Treasury -->
@@ -245,18 +171,7 @@
           <li><a href="pdfs/How to Setup Customer.pdf" target="_blank">How to Setup Customer</a></li>
           <li><a href="pdfs/How to Setup Item Code.pdf" target="_blank">How to Setup Item Code</a></li>
           <li><a href="pdfs/How to Setup Quotation.pdf" target="_blank">How to Setup Quotation</a></li>
-
-          <!-- Dynamically list newly uploaded files for SOP Treasury (extension removed) -->
-          <?php
-          $dir = 'uploads/sop-treasury-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
     </ul>
@@ -282,18 +197,7 @@
           <li><a href="pdfs/functional_specifications/receivables/HSBC Pesonet Enhancement.pdf" target="_blank">HSBC PESONET Enhancement</a></li>
           <li><a href="pdfs/functional_specifications/receivables/Metrobank Online Solution Bank File.pdf" target="_blank">Metrobank Online Solution Bank File</a></li>
           <li><a href="pdfs/functional_specifications/receivables/Budget Monitoring Workflow.pdf" target="_blank">Budget Monitoring Workflow</a></li>
-
-          <!-- Dynamically list newly uploaded files for FS Receivables (extension removed) -->
-          <?php
-          $dir = 'uploads/fs-receivables-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
       <!-- Payables -->
@@ -304,18 +208,7 @@
         <ul class="nested-subtopics" id="fs-payables-subtopics">
           <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
           <li><a href="pdfs/functional_specifications/payables/MD050 Disbursement Summary Report.pdf" target="_blank">Disbursement Summary Report</a></li>
-
-          <!-- Dynamically list newly uploaded files for FS Payables (extension removed) -->
-          <?php
-          $dir = 'uploads/fs-payables-subtopics';
-          if (is_dir($dir)) {
-              $files = array_diff(scandir($dir), array('.', '..'));
-              foreach ($files as $file) {
-                  $displayName = pathinfo($file, PATHINFO_FILENAME);
-                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
-              }
-          }
-          ?>
+          <!-- The approved dynamic files will be loaded here via AJAX -->
         </ul>
       </li>
     </ul>
@@ -375,6 +268,9 @@
 
   <!-- ========== JavaScript Section ========== -->
   <script>
+    // Define the base URL for your PHP back end (change this to your actual PHP host's URL)
+    const backendUrl = "https://yourphphost.com/Helpdesk/";
+
     /* -------------------- Polyfills -------------------- */
     if (window.NodeList && !NodeList.prototype.forEach) {
       NodeList.prototype.forEach = Array.prototype.forEach;
@@ -501,15 +397,17 @@
       formData.append('fileTitle', fileTitle);
       formData.append('fileCategory', fileCategory);
 
-      fetch('upload.php', {
+      fetch(backendUrl + "upload.php", {
         method: 'POST',
         body: formData
       })
       .then(response => response.text())
       .then(data => {
         alert(data);
-        // Reload the page so the new file link appears under its subtopic
-        location.reload();
+        // Reload the dynamic lists for this category after upload.
+        loadApprovedFiles(fileCategory);
+        // Optionally, reload the page:
+        // location.reload();
       })
       .catch(error => {
         console.error('Error:', error);
@@ -520,6 +418,50 @@
       fileInput.value = "";
       document.getElementById('fileTitle').value = "";
     }
+
+    /* -------------------- Load Approved Files via AJAX -------------------- */
+    // This function will fetch approved files for a given subtopic from the PHP backend.
+    function loadApprovedFiles(subtopic) {
+      // Define the URL for the endpoint that returns JSON data
+      var url = backendUrl + "getApprovedFiles.php?subtopic=" + encodeURIComponent(subtopic);
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // data should be an array of file objects {filename, displayName, fileUrl}
+          var ul = document.getElementById(subtopic);
+          if (!ul) return;
+          ul.innerHTML = ""; // Clear current list
+          data.forEach(function(file) {
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.href = file.fileUrl;
+            a.target = "_blank";
+            a.textContent = file.displayName;
+            li.appendChild(a);
+            ul.appendChild(li);
+          });
+        })
+        .catch(error => console.error("Error loading approved files:", error));
+    }
+
+    // Load approved files for each subtopic when the page loads.
+    window.addEventListener("load", function() {
+      // List all subtopic IDs that require dynamic loading.
+      var subtopics = [
+        "wi-receivables-subtopics",
+        "wi-payables-subtopics",
+        "wi-gl-subtopics",
+        "wi-purchasing-subtopics",
+        "wi-oracle-guides-subtopics",
+        "sop-finance-subtopics",
+        "sop-treasury-subtopics",
+        "fs-receivables-subtopics",
+        "fs-payables-subtopics"
+      ];
+      subtopics.forEach(function(subtopic) {
+        loadApprovedFiles(subtopic);
+      });
+    });
   </script>
 </body>
 </html>
