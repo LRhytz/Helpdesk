@@ -1,10 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: https://lrhytz.github.io/Helpdesk/");
-// process_approval.php
-// This script processes approval or rejection of a file upload based on a unique token.
+header("Access-Control-Allow-Origin: https://yourwebsite.com"); // Adjust to your frontend URL
 
-// DEBUGGING FLAG: Set to true to output GET parameters for troubleshooting.
-$debug = true;
+$debug = false;
 if ($debug) {
     echo "<pre>GET parameters received:\n" . print_r($_GET, true) . "</pre>";
 }
