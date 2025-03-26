@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents($tokensFile, json_encode($tokensData, JSON_PRETTY_PRINT));
 
             // IMPORTANT: Change these URLs to your PHP host's public URL!
-            $approvalLink = "https://yourphphost.com/Helpdesk/process_approval.php?action=approve&token=" . urlencode($token);
-            $rejectionLink = "https://yourphphost.com/Helpdesk/process_approval.php?action=reject&token=" . urlencode($token);
+            $approvalLink = "https://helpdeskpharmacy.kesug.com/process_approval.php?action=approve&token=" . urlencode($token);
+            $rejectionLink = "https://helpdeskpharmacy.kesug.com/process_approval.php?action=reject&token=" . urlencode($token);
 
             $subject = "New File Upload Pending Approval";
             $message = "A new file has been uploaded and is pending approval.\n\n";
