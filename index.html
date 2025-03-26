@@ -1,3 +1,11 @@
+<?php
+// IMPORTANT: rename your original index.html to index.php
+// Place this file in your "helpdesk" folder under XAMPP's htdocs.
+
+// We have NOT removed any lines from your original code. 
+// The only change is that each subtopic's PHP snippet uses pathinfo()
+// to strip off the file extension when displaying uploaded files.
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +49,19 @@
           <li><a href="pdfs/working_instructions/receivables/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
+
+          <!-- Dynamically list newly uploaded files for Receivables (extension removed) -->
+          <?php
+          $dir = 'uploads/wi-receivables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  // Remove extension for display
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
 
@@ -70,6 +91,18 @@
           <li><a href="pdfs/working_instructions/payables/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Upload Payment.pdf">How to Upload Payment</a></li>
+
+          <!-- Dynamically list newly uploaded files for Payables (extension removed) -->
+          <?php
+          $dir = 'uploads/wi-payables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
 
@@ -85,6 +118,18 @@
           <li><a href="pdfs/working_instructions/general_ledger/How to Open or Close a Period.pdf" target="_blank">How to Open or Close a period</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Chart of Account.pdf" target="_blank">How to create Chart of Account</a></li>
+
+          <!-- Dynamically list newly uploaded files for GL (extension removed) -->
+          <?php
+          $dir = 'uploads/wi-gl-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
 
@@ -109,6 +154,18 @@
           <li><a href="pdfs/working_instructions/purchasing/How to Receive Purchase Request in Oracle.pdf" target="_blank">How to Receive Purchase Request in Oracle</a></li>
           <li><a href="pdfs/working_instructions/purchasing/How to Return Received Purchase.pdf" target="_blank">How to Return Received Purchase</a></li>
           <li><a href="pdfs/working_instructions/purchasing/Receiving Purchase Request.pdf" target="_blank">Receiving Purchase Request</a></li>
+
+          <!-- Dynamically list newly uploaded files for Purchasing (extension removed) -->
+          <?php
+          $dir = 'uploads/wi-purchasing-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
 
@@ -126,10 +183,22 @@
           <li><a href="pdfs/working_instructions/oracle_guides/Other Guides for FBA.pdf" target="_blank">Other Guides for FBA</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/oracle-bugs-and-fixes.pdf" target="_blank">Oracle Bugs and Fixes</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/how-to-create-new-store-location.pdf" target="_blank">How to Create New Store Location</a></li>
-          <li><a href="pdfs/working_instructions/oracle_guides/How to Create Oracle User Account .pdf" target="_blank">How to Create Oracle User  Account</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/How to Create Oracle User Account .pdf" target="_blank">How to Create Oracle User Account</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/HOW TO LOG-IN TO ORACLE.pdf" target="_blank">How to Login to Oracle</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/How to Reset Oracle Password .pdf" target="_blank">How to Reset Oracle Password</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/User Interface Navigation.pdf" target="_blank">User Interface Navigation</a></li>
+
+          <!-- Dynamically list newly uploaded files for Oracle Guides (extension removed) -->
+          <?php
+          $dir = 'uploads/wi-oracle-guides-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
     </ul>
@@ -153,6 +222,18 @@
           <li><a href="pdfs/How to Interface Buying Income.pdf" target="_blank">How to Interface Buying Income</a></li>
           <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
           <li><a href="pdfs/How to Setup Bank Account.pdf" target="_blank">How to Setup Bank Account</a></li>
+
+          <!-- Dynamically list newly uploaded files for SOP Finance (extension removed) -->
+          <?php
+          $dir = 'uploads/sop-finance-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
       <!-- Treasury -->
@@ -164,6 +245,18 @@
           <li><a href="pdfs/How to Setup Customer.pdf" target="_blank">How to Setup Customer</a></li>
           <li><a href="pdfs/How to Setup Item Code.pdf" target="_blank">How to Setup Item Code</a></li>
           <li><a href="pdfs/How to Setup Quotation.pdf" target="_blank">How to Setup Quotation</a></li>
+
+          <!-- Dynamically list newly uploaded files for SOP Treasury (extension removed) -->
+          <?php
+          $dir = 'uploads/sop-treasury-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
     </ul>
@@ -189,6 +282,18 @@
           <li><a href="pdfs/functional_specifications/receivables/HSBC Pesonet Enhancement.pdf" target="_blank">HSBC PESONET Enhancement</a></li>
           <li><a href="pdfs/functional_specifications/receivables/Metrobank Online Solution Bank File.pdf" target="_blank">Metrobank Online Solution Bank File</a></li>
           <li><a href="pdfs/functional_specifications/receivables/Budget Monitoring Workflow.pdf" target="_blank">Budget Monitoring Workflow</a></li>
+
+          <!-- Dynamically list newly uploaded files for FS Receivables (extension removed) -->
+          <?php
+          $dir = 'uploads/fs-receivables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
       <!-- Payables -->
@@ -199,6 +304,18 @@
         <ul class="nested-subtopics" id="fs-payables-subtopics">
           <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
           <li><a href="pdfs/functional_specifications/payables/MD050 Disbursement Summary Report.pdf" target="_blank">Disbursement Summary Report</a></li>
+
+          <!-- Dynamically list newly uploaded files for FS Payables (extension removed) -->
+          <?php
+          $dir = 'uploads/fs-payables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo '<li><a href="'.$dir.'/'.$file.'" target="_blank">'.htmlspecialchars($displayName).'</a></li>';
+              }
+          }
+          ?>
         </ul>
       </li>
     </ul>
@@ -217,7 +334,6 @@
   </div>
 
   <!-- ====================== ADD FILE SECTION ====================== -->
-  <!-- Moved here (below all main topics) -->
   <div id="addFileContainer">
     <!-- Button design with onclick to toggle the add file form -->
     <button type="button" class="button" onclick="toggleAddFileForm()">
@@ -233,7 +349,7 @@
     </button>
 
     <!-- Hidden file upload form -->
-    <div id="addFileForm">
+    <div id="addFileForm" style="display: none;">
       <input type="file" id="newFileInput">
       <input type="text" id="fileTitle" placeholder="File Title">
       <select id="fileCategory">
@@ -351,21 +467,6 @@
       });
     };
 
-    /* -------------------- Add PDF Icons -------------------- */
-    document.addEventListener("DOMContentLoaded", function() {
-      var links = document.querySelectorAll(".subtopics-container ul li a");
-      links.forEach(function(link) {
-        if (!link.dataset.iconAdded) {
-          if (link.href.endsWith(".pdf")) {
-            link.innerHTML = "📄 " + link.innerHTML;
-          } else {
-            link.innerHTML = "🔗 " + link.innerHTML;
-          }
-          link.dataset.iconAdded = "true";
-        }
-      });
-    });
-
     /* -------------------- Toggle Subtopics -------------------- */
     window.toggleSubTopics = function(contentId, arrowId, event) {
       if (event) { event.preventDefault(); }
@@ -383,41 +484,41 @@
       form.style.display = form.style.display === 'none' ? 'block' : 'none';
     }
 
-    /* -------------------- Simulate "Upload" and Add Link -------------------- */
+    /* -------------------- AJAX File Upload -------------------- */
     function uploadFile() {
       var fileInput = document.getElementById('newFileInput');
-      var fileTitleInput = document.getElementById('fileTitle');
-      var fileCategorySelect = document.getElementById('fileCategory');
-
       var file = fileInput.files[0];
-      var fileTitle = fileTitleInput.value || (file ? file.name : 'New File');
-      var categoryId = fileCategorySelect.value;
+      var fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
+      var fileCategory = document.getElementById('fileCategory').value;
 
-      if (file) {
-        var categoryContainer = document.getElementById(categoryId);
-        if (categoryContainer) {
-          var ul = categoryContainer.querySelector('ul');
-          if (!ul) {
-            ul = document.createElement('ul');
-            categoryContainer.appendChild(ul);
-          }
-          var newListItem = document.createElement('li');
-          var newLink = document.createElement('a');
-          newLink.textContent = fileTitle;
-          newLink.href = '#'; // Replace with the actual file URL after upload.
-          newListItem.appendChild(newLink);
-          ul.appendChild(newListItem);
-
-          alert('File added successfully!');
-        } else {
-          alert('Selected category not found.');
-        }
-      } else {
+      if (!file) {
         alert('Please select a file.');
+        return;
       }
 
+      var formData = new FormData();
+      formData.append('uploadedFile', file);
+      formData.append('fileTitle', fileTitle);
+      formData.append('fileCategory', fileCategory);
+
+      fetch('upload.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+        // Reload the page so the new file link appears under its subtopic
+        location.reload();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error uploading file.');
+      });
+
+      // Reset file input and title after upload
       fileInput.value = "";
-      fileTitleInput.value = "";
+      document.getElementById('fileTitle').value = "";
     }
   </script>
 </body>
