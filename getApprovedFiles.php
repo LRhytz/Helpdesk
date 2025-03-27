@@ -1,7 +1,10 @@
 <?php
 // getApprovedFiles.php
+// This script returns a JSON array of approved files for a given subtopic.
+// It is hosted on your PHP-enabled server.
+
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: https://yourwebsite.com"); // Adjust to your frontend URL
+header("Access-Control-Allow-Origin: http://localhost/Helpdesk/");  // Update to match your local XAMPP environment
 
 if (!isset($_GET['subtopic'])) {
     echo json_encode([]);
@@ -9,7 +12,7 @@ if (!isset($_GET['subtopic'])) {
 }
 
 $subtopic = $_GET['subtopic'];
-$dir = "uploads/$subtopic/";
+$dir = "uploads/$subtopic/"; // Update this path to match your local directory structure
 
 if (!is_dir($dir)) {
     echo json_encode([]);
@@ -23,7 +26,7 @@ foreach ($files as $file) {
     $result[] = [
         "filename" => $file,
         "displayName" => $displayName,
-        "fileUrl" => $dir . $file // You can modify this to a fully qualified URL
+        "fileUrl" => "http://localhost/Helpdesk/$dir$file"  // Update the URL for local access
     ];
 }
 

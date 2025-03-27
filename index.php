@@ -1,10 +1,22 @@
+<?php
+// index.php
+// This is your updated file with PHP logic to handle dynamic content (approved files)
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Help Desk</title>
-  <!-- Link to your external CSS file -->
   <link rel="stylesheet" type="text/css" href="index.css">
+  <style>
+    /* Optional CSS to help structure the nested lists */
+    ul.nested-subtopics {
+      padding-left: 20px;
+    }
+    ul.nested-subtopics li {
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
 <body>
 
@@ -21,7 +33,7 @@
   </div>
 
   <!-- ====================== WORKING INSTRUCTIONS ====================== -->
-  <div class="main-title" onclick="toggleSubTopics('subtopics-1', 'arrow-1')">
+  <div class="main-title" onclick="toggleSubTopics('subtopics-1','arrow-1')">
     <img src="Icons/information-pamphlet.png" class="icon">
     <span>Working Instructions <span id="arrow-1" class="dropdown-arrow">▼</span></span>
   </div>
@@ -29,26 +41,36 @@
     <ul>
       <!-- Receivables -->
       <li>
-        <a href="#" onclick="toggleSubTopics('wi-receivables-subtopics', 'arrow-wi-receivables'); event.stopPropagation();">
+        <a href="#" onclick="toggleSubTopics('wi-receivables-subtopics','arrow-wi-receivables'); event.stopPropagation();">
           Receivables <span id="arrow-wi-receivables" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-receivables-subtopics">
           <!-- Static PDF links remain as is -->
           <li><a href="pdfs/working_instructions/receivables/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Create AR Transation Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Create AR Transaction Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface AR Invoices.pdf" target="_blank">How to Interface AR Invoices</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface AR Pay Modes.pdf" target="_blank">How to Interface AR Pay Modes</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface Customer.pdf" target="_blank">How to Interface Customer</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
           <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
+          <!-- Dynamically list approved Receivables files -->
+          <?php
+          $dir = 'uploads/wi-receivables-subtopics';  // Final folder for Receivables
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
         </ul>
       </li>
 
       <!-- Payables -->
       <li>
-        <a href="#" onclick="toggleSubTopics('wi-payables-subtopics', 'arrow-wi-payables'); event.stopPropagation();">
+        <a href="#" onclick="toggleSubTopics('wi-payables-subtopics','arrow-wi-payables'); event.stopPropagation();">
           Payables <span id="arrow-wi-payables" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-payables-subtopics">
@@ -72,13 +94,23 @@
           <li><a href="pdfs/working_instructions/payables/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
           <li><a href="pdfs/working_instructions/payables/How to Upload Payment.pdf">How to Upload Payment</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
+          <!-- Dynamically list approved Payables files -->
+          <?php
+          $dir = 'uploads/wi-payables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
         </ul>
       </li>
 
       <!-- General Ledger -->
       <li>
-        <a href="#" onclick="toggleSubTopics('wi-gl-subtopics', 'arrow-wi-gl'); event.stopPropagation();">
+        <a href="#" onclick="toggleSubTopics('wi-gl-subtopics','arrow-wi-gl'); event.stopPropagation();">
           General Ledger <span id="arrow-wi-gl" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-gl-subtopics">
@@ -88,13 +120,23 @@
           <li><a href="pdfs/working_instructions/general_ledger/How to Open or Close a Period.pdf" target="_blank">How to Open or Close a period</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
           <li><a href="pdfs/working_instructions/general_ledger/How to Create Chart of Account.pdf" target="_blank">How to create Chart of Account</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
+          <!-- Dynamically list approved General Ledger files -->
+          <?php
+          $dir = 'uploads/wi-gl-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
         </ul>
       </li>
 
       <!-- Purchasing -->
       <li>
-        <a href="#" onclick="toggleSubTopics('wi-purchasing-subtopics', 'arrow-wi-purchasing'); event.stopPropagation();">
+        <a href="#" onclick="toggleSubTopics('wi-purchasing-subtopics','arrow-wi-purchasing'); event.stopPropagation();">
           Purchasing <span id="arrow-wi-purchasing" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-purchasing-subtopics">
@@ -108,18 +150,23 @@
           <li><a href="pdfs/working_instructions/purchasing/How to Create Purchase Request V2.pdf" target="_blank">How to Create Purchase Request V2</a></li>
           <li><a href="pdfs/working_instructions/purchasing/How to Create Purchase Request.pdf" target="_blank">How to Create Purchase Request</a></li>
           <li><a href="pdfs/working_instructions/purchasing/How to Delegate PR Approval V2.pdf" target="_blank">How to Delegate PR Approval V2</a></li>
-          <li><a href="pdfs/working_instructions/purchasing/How to Generate Expenditure Request Form.pdf" target="_blank">How to Generate Expenditure Request Form</a></li>
-          <li><a href="pdfs/working_instructions/purchasing/How to Generate Purchase Request .pdf" target="_blank">How to Generate Purchase Request</a></li>
-          <li><a href="pdfs/working_instructions/purchasing/How to Receive Purchase Request in Oracle.pdf" target="_blank">How to Receive Purchase Request in Oracle</a></li>
-          <li><a href="pdfs/working_instructions/purchasing/How to Return Received Purchase.pdf" target="_blank">How to Return Received Purchase</a></li>
-          <li><a href="pdfs/working_instructions/purchasing/Receiving Purchase Request.pdf" target="_blank">Receiving Purchase Request</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
+          <!-- Dynamically list approved Purchasing files -->
+          <?php
+          $dir = 'uploads/wi-purchasing-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
         </ul>
       </li>
 
       <!-- Oracle Guides -->
       <li>
-        <a href="#" onclick="toggleSubTopics('wi-oracle-guides-subtopics', 'arrow-wi-oracle-guides'); event.stopPropagation();">
+        <a href="#" onclick="toggleSubTopics('wi-oracle-guides-subtopics','arrow-wi-oracle-guides'); event.stopPropagation();">
           Oracle Guides <span id="arrow-wi-oracle-guides" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-oracle-guides-subtopics">
@@ -131,91 +178,71 @@
           <li><a href="pdfs/working_instructions/oracle_guides/Other Guides for FBA.pdf" target="_blank">Other Guides for FBA</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/oracle-bugs-and-fixes.pdf" target="_blank">Oracle Bugs and Fixes</a></li>
           <li><a href="pdfs/working_instructions/oracle_guides/how-to-create-new-store-location.pdf" target="_blank">How to Create New Store Location</a></li>
-          <li><a href="pdfs/working_instructions/oracle_guides/How to Create Oracle User Account .pdf" target="_blank">How to Create Oracle User Account</a></li>
-          <li><a href="pdfs/working_instructions/oracle_guides/HOW TO LOG-IN TO ORACLE.pdf" target="_blank">How to Login to Oracle</a></li>
-          <li><a href="pdfs/working_instructions/oracle_guides/How to Reset Oracle Password .pdf" target="_blank">How to Reset Oracle Password</a></li>
-          <li><a href="pdfs/working_instructions/oracle_guides/User Interface Navigation.pdf" target="_blank">User Interface Navigation</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
+          <!-- Dynamically list approved Oracle Guides files -->
+          <?php
+          $dir = 'uploads/wi-oracle-guides-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
         </ul>
       </li>
     </ul>
   </div>
 
   <!-- ====================== SOP ====================== -->
-  <div class="main-title" onclick="toggleSubTopics('subtopics-2', 'arrow-2')">
+  <div class="main-title" onclick="toggleSubTopics('subtopics-2','arrow-2')">
     <img src="Icons/standard-operating-procedures.png" class="icon">
     <span>SOP<span id="arrow-2" class="dropdown-arrow">▼</span></span>
   </div>
   <div class="subtopics-container" id="subtopics-2">
     <ul>
-      <!-- Finance -->
-      <li>
-        <a href="#" onclick="toggleSubTopics('sop-finance-subtopics', 'arrow-sop-finance'); event.stopPropagation();">
-          Finance <span id="arrow-sop-finance" class="dropdown-arrow">▼</span>
-        </a>
-        <ul class="nested-subtopics" id="sop-finance-subtopics">
-          <li><a href="pdfs/How to Generate BIR Form 2307.pdf" target="_blank">How to Generate BIR Form 2307</a></li>
-          <li><a href="pdfs/How to Generate Daily Collection Report.pdf" target="_blank">How to Generate Daily Collection Report</a></li>
-          <li><a href="pdfs/How to Interface Buying Income.pdf" target="_blank">How to Interface Buying Income</a></li>
-          <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
-          <li><a href="pdfs/How to Setup Bank Account.pdf" target="_blank">How to Setup Bank Account</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
-        </ul>
-      </li>
-      <!-- Treasury -->
-      <li>
-        <a href="#" onclick="toggleSubTopics('sop-treasury-subtopics', 'arrow-sop-treasury'); event.stopPropagation();">
-          Treasury <span id="arrow-sop-treasury" class="dropdown-arrow">▼</span>
-        </a>
-        <ul class="nested-subtopics" id="sop-treasury-subtopics">
-          <li><a href="pdfs/How to Setup Customer.pdf" target="_blank">How to Setup Customer</a></li>
-          <li><a href="pdfs/How to Setup Item Code.pdf" target="_blank">How to Setup Item Code</a></li>
-          <li><a href="pdfs/How to Setup Quotation.pdf" target="_blank">How to Setup Quotation</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
-        </ul>
-      </li>
+      <li><a href="pdfs/How to Generate BIR Form 2307.pdf" target="_blank">How to Generate BIR Form 2307</a></li>
+      <li><a href="pdfs/How to Generate Daily Collection Report.pdf" target="_blank">How to Generate Daily Collection Report</a></li>
+      <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
+      <!-- Dynamically list approved SOP files -->
+      <?php
+      $dir = 'uploads/so-sop-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
     </ul>
   </div>
 
   <!-- ====================== FUNCTIONAL SPECIFICATIONS ====================== -->
-  <div class="main-title" onclick="toggleSubTopics('subtopics-4', 'arrow-4')">
+  <div class="main-title" onclick="toggleSubTopics('subtopics-4','arrow-4')">
     <img src="Icons/design-resources.png" class="icon">
     <span>Functional Specifications<span id="arrow-4" class="dropdown-arrow">▼</span></span>
   </div>
   <div class="subtopics-container" id="subtopics-4">
     <ul>
-      <!-- Receivables -->
-      <li>
-        <a href="#" onclick="toggleSubTopics('fs-receivables-subtopics', 'arrow-fs-receivables'); event.stopPropagation();">
-          Receivables <span id="arrow-fs-receivables" class="dropdown-arrow">▼</span>
-        </a>
-        <ul class="nested-subtopics" id="fs-receivables-subtopics">
-          <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/AP Vendor Interface Enhancement.pdf" target="_blank">AP Vendor Interface Enhancement</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/Auto-Email_PA_2307_NP.pdf" target="_blank">Auto Email PA 2307 NP</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/Service Invoice.pdf" target="_blank">Service Invoice</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/HSBC Pesonet Enhancement.pdf" target="_blank">HSBC PESONET Enhancement</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/Metrobank Online Solution Bank File.pdf" target="_blank">Metrobank Online Solution Bank File</a></li>
-          <li><a href="pdfs/functional_specifications/receivables/Budget Monitoring Workflow.pdf" target="_blank">Budget Monitoring Workflow</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
-        </ul>
-      </li>
-      <!-- Payables -->
-      <li>
-        <a href="#" onclick="toggleSubTopics('fs-payables-subtopics', 'arrow-fs-payables'); event.stopPropagation();">
-          Payables <span id="arrow-fs-payables" class="dropdown-arrow">▼</span>
-        </a>
-        <ul class="nested-subtopics" id="fs-payables-subtopics">
-          <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
-          <li><a href="pdfs/functional_specifications/payables/MD050 Disbursement Summary Report.pdf" target="_blank">Disbursement Summary Report</a></li>
-          <!-- The approved dynamic files will be loaded here via AJAX -->
-        </ul>
-      </li>
+      <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
+      <li><a href="pdfs/functional_specifications/receivables/AP Vendor Interface Enhancement.pdf" target="_blank">AP Vendor Interface Enhancement</a></li>
+      <!-- Dynamically list approved Functional Specifications files -->
+      <?php
+      $dir = 'uploads/fs-functional-specifications-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
     </ul>
   </div>
 
   <!-- ====================== PROCESS FLOW ====================== -->
-  <div class="main-title" onclick="toggleSubTopics('subtopics-3', 'arrow-3')">
+  <div class="main-title" onclick="toggleSubTopics('subtopics-3','arrow-3')">
     <img src="Icons/workflow.png" class="icon">
     <span>Process Flow <span id="arrow-3" class="dropdown-arrow">▼</span></span>
   </div>
@@ -223,17 +250,28 @@
     <ul>
       <li><a href="file7.html">Process Step 1</a></li>
       <li><a href="file8.html">Process Step 2</a></li>
+      <!-- Dynamically list approved Process Flow files -->
+      <?php
+      $dir = 'uploads/pf-process-flow-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
     </ul>
   </div>
 
   <!-- ====================== ADD FILE SECTION ====================== -->
   <div id="addFileContainer">
-    <!-- Button design with onclick to toggle the add file form -->
     <button type="button" class="button" onclick="toggleAddFileForm()">
       <span class="button__text">Add File</span>
       <span class="button__icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" 
-             stroke-width="2" stroke-linejoin="round" stroke-linecap="round" 
+        <!-- Optional SVG plus icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
+             stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
              stroke="currentColor" height="24" fill="none" class="svg">
           <line y2="19" y1="5" x2="12" x1="12"></line>
           <line y2="12" y1="12" x2="19" x1="5"></line>
@@ -241,26 +279,21 @@
       </span>
     </button>
 
-    <!-- Hidden file upload form -->
     <div id="addFileForm" style="display: none;">
       <input type="file" id="newFileInput">
       <input type="text" id="fileTitle" placeholder="File Title">
       <select id="fileCategory">
-        <optgroup label="Working Instructions">
-          <option value="wi-receivables-subtopics">Receivables</option>
-          <option value="wi-payables-subtopics">Payables</option>
-          <option value="wi-gl-subtopics">General Ledger</option>
-          <option value="wi-purchasing-subtopics">Purchasing</option>
-          <option value="wi-oracle-guides-subtopics">Oracle Guides</option>
-        </optgroup>
-        <optgroup label="SOP">
-          <option value="sop-finance-subtopics">Finance</option>
-          <option value="sop-treasury-subtopics">Treasury</option>
-        </optgroup>
-        <optgroup label="Functional Specifications">
-          <option value="fs-receivables-subtopics">Receivables</option>
-          <option value="fs-payables-subtopics">Payables</option>
-        </optgroup>
+        <option value="wi-receivables-subtopics">Receivables (Working Instructions)</option>
+        <option value="wi-payables-subtopics">Payables (Working Instructions)</option>
+        <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
+        <option value="wi-purchasing-subtopics">Purchasing (Working Instructions)</option>
+        <option value="wi-oracle-guides-subtopics">Oracle Guides (Working Instructions)</option>
+        <!-- Main Topic Options -->
+        <option value="so-sop-subtopics">SOP</option>
+        <!-- Main Topic Options -->
+        <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
+        <!-- Main Topic Options -->
+        <option value="pf-process-flow-subtopics">Process Flow</option>
       </select>
       <button class="upload-btn" onclick="uploadFile()">Upload</button>
     </div>
@@ -268,98 +301,16 @@
 
   <!-- ========== JavaScript Section ========== -->
   <script>
-    // Define the base URL for your PHP back end (change this to your actual PHP host's URL)
-    const backendUrl = "https://yourphphost.com/Helpdesk/";
-
-    /* -------------------- Polyfills -------------------- */
-    if (window.NodeList && !NodeList.prototype.forEach) {
-      NodeList.prototype.forEach = Array.prototype.forEach;
-    }
-    if (!String.prototype.includes) {
-      String.prototype.includes = function(search, start) {
-        if (typeof start !== 'number') { start = 0; }
-        if (start + search.length > this.length) { return false; }
-        return this.indexOf(search, start) !== -1;
-      };
-    }
-    if (!String.prototype.endsWith) {
-      String.prototype.endsWith = function(searchStr, position) {
-        var subjectString = this.toString();
-        if (position === undefined || position > subjectString.length) {
-          position = subjectString.length;
-        }
-        position -= searchStr.length;
-        var lastIndex = subjectString.indexOf(searchStr, position);
-        return lastIndex !== -1 && lastIndex === position;
-      };
-    }
-    if (!Element.prototype.closest) {
-      Element.prototype.closest = function(s) {
-        var el = this;
-        do {
-          if (el.matches && el.matches(s)) return el;
-          el = el.parentElement || el.parentNode;
-        } while (el !== null && el.nodeType === 1);
-        return null;
-      };
-    }
+    // Define the base URL for your PHP back end (adjust if needed)
+    const backendUrl = "https://yourphpbackenddomain.com/";
 
     /* -------------------- Search Function -------------------- */
-    function expandAllParents(topic) {
-      var container = topic.closest(".subtopics-container");
-      while (container) {
-        container.classList.add("show");
-        var arrow = container.previousElementSibling 
-          ? container.previousElementSibling.querySelector(".dropdown-arrow") 
-          : null;
-        if (arrow) {
-          arrow.textContent = "▲";
-        }
-        container = container.parentElement
-          ? container.parentElement.closest(".subtopics-container")
-          : null;
-      }
-    }
-
     window.searchFunction = function() {
       var input = document.getElementById("search-bar").value.toLowerCase();
       var allTopics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-
       allTopics.forEach(function(topic) {
         var text = (topic.textContent || topic.innerText).toLowerCase();
-        if (text.includes(input) && input !== "") {
-          topic.style.display = "block";
-          expandAllParents(topic);
-        } else if (input === "") {
-          topic.style.display = "block";
-        } else {
-          topic.style.display = "none";
-        }
-      });
-
-      if (input === "") {
-        var allContainers = document.querySelectorAll(".subtopics-container");
-        allContainers.forEach(function(container) {
-          container.classList.remove("show");
-          var title = container.previousElementSibling;
-          if (title) { title.classList.remove("icon-left"); }
-          var arrow = title ? title.querySelector(".dropdown-arrow") : null;
-          if (arrow) { arrow.textContent = "▼"; }
-        });
-        return;
-      }
-
-      var mainTitles = document.querySelectorAll(".main-title");
-      mainTitles.forEach(function(title) {
-        var subtopicsContainer = title.nextElementSibling;
-        if (!subtopicsContainer) return;
-        var visibleSubtopics = subtopicsContainer.querySelectorAll("li[style*='display: block']");
-        if (visibleSubtopics.length === 0) {
-          title.style.display = "none";
-          subtopicsContainer.classList.remove("show");
-        } else {
-          title.style.display = "block";
-        }
+        topic.style.display = (text.includes(input) || input === "") ? "block" : "none";
       });
     };
 
@@ -374,13 +325,7 @@
       }
     };
 
-    /* -------------------- Toggle Add File Form -------------------- */
-    function toggleAddFileForm() {
-      var form = document.getElementById('addFileForm');
-      form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    }
-
-    /* -------------------- AJAX File Upload -------------------- */
+    /* -------------------- File Upload -------------------- */
     function uploadFile() {
       var fileInput = document.getElementById('newFileInput');
       var file = fileInput.files[0];
@@ -397,16 +342,15 @@
       formData.append('fileTitle', fileTitle);
       formData.append('fileCategory', fileCategory);
 
-      fetch(backendUrl + "upload.php", {
+      // Send to upload.php
+      fetch('upload.php', {
         method: 'POST',
         body: formData
       })
       .then(response => response.text())
       .then(data => {
         alert(data);
-        // Reload the dynamic lists for this category after upload.
-        loadApprovedFiles(fileCategory);
-        // Optionally, reload the page:
+        // Optionally reload the page to see new files (once approved)
         // location.reload();
       })
       .catch(error => {
@@ -414,54 +358,20 @@
         alert('Error uploading file.');
       });
 
-      // Reset file input and title after upload
+      // Reset inputs
       fileInput.value = "";
       document.getElementById('fileTitle').value = "";
     }
 
-    /* -------------------- Load Approved Files via AJAX -------------------- */
-    // This function will fetch approved files for a given subtopic from the PHP backend.
-    function loadApprovedFiles(subtopic) {
-      // Define the URL for the endpoint that returns JSON data
-      var url = backendUrl + "getApprovedFiles.php?subtopic=" + encodeURIComponent(subtopic);
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          // data should be an array of file objects {filename, displayName, fileUrl}
-          var ul = document.getElementById(subtopic);
-          if (!ul) return;
-          ul.innerHTML = ""; // Clear current list
-          data.forEach(function(file) {
-            var li = document.createElement("li");
-            var a = document.createElement("a");
-            a.href = file.fileUrl;
-            a.target = "_blank";
-            a.textContent = file.displayName;
-            li.appendChild(a);
-            ul.appendChild(li);
-          });
-        })
-        .catch(error => console.error("Error loading approved files:", error));
+    /* -------------------- Toggle Add File Form -------------------- */
+    function toggleAddFileForm() {
+      var form = document.getElementById('addFileForm');
+      if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+      }
     }
-
-    // Load approved files for each subtopic when the page loads.
-    window.addEventListener("load", function() {
-      // List all subtopic IDs that require dynamic loading.
-      var subtopics = [
-        "wi-receivables-subtopics",
-        "wi-payables-subtopics",
-        "wi-gl-subtopics",
-        "wi-purchasing-subtopics",
-        "wi-oracle-guides-subtopics",
-        "sop-finance-subtopics",
-        "sop-treasury-subtopics",
-        "fs-receivables-subtopics",
-        "fs-payables-subtopics"
-      ];
-      subtopics.forEach(function(subtopic) {
-        loadApprovedFiles(subtopic);
-      });
-    });
   </script>
 </body>
 </html>
