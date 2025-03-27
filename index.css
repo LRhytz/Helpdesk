@@ -1,41 +1,61 @@
 /* Import your font family (optional) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-
+/* ===================== BUTTON STYLES ===================== */
+/* Added -ms-flexbox and -ms-flex-align for IE10/11 compatibility */
 .button {
   position: relative;
   width: 155px;
   height: 40px;
   cursor: pointer;
+  display: -ms-flexbox; /* IE10/11 */
   display: flex;
+  -ms-flex-align: center; /* IE10/11 */
   align-items: center;
   border: 1px solid #34974d;
   background-color: #3aa856;
-}
-.button, .button__icon, .button__text {
   transition: all 0.3s;
 }
+
+/* Transition applied to all elements inside the button */
+.button, 
+.button__icon, 
+.button__text {
+  transition: all 0.3s;
+}
+
+/* Button text moves on hover */
 .button .button__text {
   transform: translateX(30px);
   color: #fff;
   font-weight: 600;
   font-size: 14px;
 }
+
+/* Button icon container: added vendor prefixes for flex */
 .button .button__icon {
   position: absolute;
   transform: translateX(109px);
+  -ms-transform: translateX(109px);
   height: 100%;
   width: 39px;
   background-color: #34974d;
+  display: -ms-flexbox; /* IE10/11 */
   display: flex;
+  -ms-flex-align: center; /* IE10/11 */
   align-items: center;
+  -ms-flex-pack: center; /* IE10/11 */
   justify-content: center;
 }
+
+/* SVG styling for icon */
 .button .svg {
   width: 20px;
   height: 20px;
   stroke: #fff;
 }
+
+/* Hover and active states for button */
 .button:hover {
   background: #34974d;
 }
@@ -45,6 +65,7 @@
 .button:hover .button__icon {
   width: 148px;
   transform: translateX(0);
+  -ms-transform: translateX(0);
 }
 .button:active .button__icon {
   background-color: #2e8644;
@@ -53,7 +74,7 @@
   border: 1px solid #2e8644;
 }
 
-/* --- General Page Styling --- */
+/* ===================== GENERAL PAGE STYLING ===================== */
 body {
   margin: 0;
   padding: 0;
@@ -71,11 +92,11 @@ body {
   display: block;
 }
 
+/* ===================== HELP SECTION ===================== */
 .help-section {
   margin-top: 20px;
   margin-bottom: 30px;
 }
-
 .help-section h2 {
   font-size: 24px;
   color: #333;
@@ -83,13 +104,12 @@ body {
   margin-bottom: 15px;
 }
 
-/* Search Container */
+/* ===================== SEARCH CONTAINER ===================== */
 .search-container {
   position: relative;
   width: 45%;
   margin: 0 auto;
 }
-
 .search-container .search-icon {
   position: absolute;
   left: 14px;
@@ -102,7 +122,7 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Search Bar */
+/* ===================== SEARCH BAR ===================== */
 #search-bar {
   width: 100%;
   padding: 12px 16px 12px 44px;
@@ -121,7 +141,8 @@ body {
   opacity: 1;
 }
 
-/* Main Section Titles */
+/* ===================== MAIN SECTION TITLES ===================== */
+/* Added vendor prefixes for flexbox */
 .main-title {
   background-color: #fff;
   color: #333;
@@ -134,8 +155,11 @@ body {
   font-size: 18px;
   text-align: center;
   font-weight: 500;
+  display: -ms-flexbox; /* IE10/11 */
   display: flex;
+  -ms-flex-align: center;
   align-items: center;
+  -ms-flex-pack: center;
   justify-content: center;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
   transition: background-color 0.3s ease-in-out;
@@ -144,7 +168,7 @@ body {
   background-color: #eee;
 }
 
-/* Subtopics Container */
+/* ===================== SUBTOPICS CONTAINER ===================== */
 .subtopics-container {
   max-height: 0;
   opacity: 0;
@@ -165,7 +189,7 @@ body {
   transition: max-height 0.6s ease-in-out, padding 0.3s ease;
 }
 
-/* Subtopics List */
+/* ===================== SUBTOPICS LIST ===================== */
 .subtopics-container ul {
   list-style: none;
   padding: 0;
@@ -176,7 +200,7 @@ body {
   padding-left: 10px;
 }
 
-/* Subtopics Link */
+/* ===================== SUBTOPICS LINK ===================== */
 .subtopics-container ul li a {
   text-decoration: none;
   color: #333;
@@ -195,7 +219,7 @@ body {
   transform: translateX(5px);
 }
 
-/* Nested Subtopics */
+/* ===================== NESTED SUBTOPICS ===================== */
 .nested-subtopics {
   max-height: 0;
   opacity: 0;
@@ -215,18 +239,17 @@ body {
   display: none;
 }
 
-/* Icons */
+/* ===================== ICONS ===================== */
 .icon {
   width: 25px;
   height: 25px;
   margin-right: 8px;
 }
-/* Prevent Double Icons */
 .subtopics-container ul li a[data-icon-added="true"]::before {
   display: none;
 }
 
-/* Custom styling for Add File section */
+/* ===================== ADD FILE SECTION ===================== */
 #addFileContainer {
   margin: 20px;
 }
@@ -234,7 +257,7 @@ body {
   display: none;
   margin-top: 10px;
 }
-/* Styling for form inputs (optional) */
+/* Form inputs */
 #addFileForm input,
 #addFileForm select,
 #addFileForm button.upload-btn {

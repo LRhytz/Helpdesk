@@ -6,17 +6,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Force IE to use its latest rendering engine -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Help Desk</title>
   <link rel="stylesheet" type="text/css" href="index.css">
-  <style>
-    /* Optional CSS to help structure the nested lists */
-    ul.nested-subtopics {
-      padding-left: 20px;
-    }
-    ul.nested-subtopics li {
-      margin-bottom: 5px;
-    }
-  </style>
+  <!-- Include fetch polyfill for IE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
 </head>
 <body>
 
@@ -56,7 +51,7 @@
           <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
           <!-- Dynamically list approved Receivables files -->
           <?php
-          $dir = 'uploads/wi-receivables-subtopics';  // Final folder for Receivables
+          $dir = 'uploads/wi-receivables-subtopics';
           if (is_dir($dir)) {
               $files = array_diff(scandir($dir), array('.', '..'));
               foreach ($files as $file) {
@@ -269,7 +264,7 @@
     <button type="button" class="button" onclick="toggleAddFileForm()">
       <span class="button__text">Add File</span>
       <span class="button__icon">
-        <!-- Optional SVG plus icon -->
+        <!-- Optional SVG plus icon; if IE has trouble, you can use an external image instead -->
         <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
              stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
              stroke="currentColor" height="24" fill="none" class="svg">
@@ -278,7 +273,6 @@
         </svg>
       </span>
     </button>
-
     <div id="addFileForm" style="display: none;">
       <input type="file" id="newFileInput">
       <input type="text" id="fileTitle" placeholder="File Title">
@@ -288,11 +282,8 @@
         <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
         <option value="wi-purchasing-subtopics">Purchasing (Working Instructions)</option>
         <option value="wi-oracle-guides-subtopics">Oracle Guides (Working Instructions)</option>
-        <!-- Main Topic Options -->
         <option value="so-sop-subtopics">SOP</option>
-        <!-- Main Topic Options -->
         <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
-        <!-- Main Topic Options -->
         <option value="pf-process-flow-subtopics">Process Flow</option>
       </select>
       <button class="upload-btn" onclick="uploadFile()">Upload</button>
@@ -307,11 +298,12 @@
     /* -------------------- Search Function -------------------- */
     window.searchFunction = function() {
       var input = document.getElementById("search-bar").value.toLowerCase();
-      var allTopics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-      allTopics.forEach(function(topic) {
+      var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
+      for (var i = 0; i < topics.length; i++) {
+        var topic = topics[i];
         var text = (topic.textContent || topic.innerText).toLowerCase();
-        topic.style.display = (text.includes(input) || input === "") ? "block" : "none";
-      });
+        topic.style.display = (text.indexOf(input) !== -1 || input === "") ? "block" : "none";
+      }
     };
 
     /* -------------------- Toggle Subtopics -------------------- */
@@ -319,9 +311,20 @@
       if (event) { event.preventDefault(); }
       var subtopics = document.getElementById(contentId);
       var arrow = document.getElementById(arrowId);
-      subtopics.classList.toggle("show");
-      if (arrow) {
-        arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+      // Use classList.toggle if available; otherwise, fallback
+      if (subtopics.classList) {
+        subtopics.classList.toggle("show");
+        if (arrow) {
+          arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+        }
+      } else {
+        if (subtopics.className.indexOf("show") === -1) {
+          subtopics.className += " show";
+          if (arrow) { arrow.textContent = "▲"; }
+        } else {
+          subtopics.className = subtopics.className.replace(/\s?show/, "");
+          if (arrow) { arrow.textContent = "▼"; }
+        }
       }
     };
 
@@ -347,13 +350,13 @@
         method: 'POST',
         body: formData
       })
-      .then(response => response.text())
-      .then(data => {
+      .then(function(response) { return response.text(); })
+      .then(function(data) {
         alert(data);
         // Optionally reload the page to see new files (once approved)
         // location.reload();
       })
-      .catch(error => {
+      .catch(function(error) {
         console.error('Error:', error);
         alert('Error uploading file.');
       });
