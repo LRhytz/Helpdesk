@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents($tokensFile, json_encode($tokensData, JSON_PRETTY_PRINT));
 
             // Build approval/rejection links
-            $approvalLink  = "http://10.77.20.27/Helpdesk/process_approval.php?action=approve&token=" . urlencode($token);
-            $rejectionLink = "http://10.77.20.27/Helpdesk/process_approval.php?action=reject&token=" . urlencode($token);
+            $approvalLink  = "http://helpdeskpharmacy.infinityfreeapp.com/process_approval.php?action=approve&token=" . urlencode($token);
+            $rejectionLink = "http://helpdeskpharmacy.infinityfreeapp.com/process_approval.php?action=reject&token=" . urlencode($token);
 
 
             // Email subject & message

@@ -14,7 +14,7 @@ $mail = new PHPMailer(true);
 
 try {
     // Enable SMTP debugging (for testing only - set to 0 for production)
-    //$mail->SMTPDebug = 0;
+    $mail->SMTPDebug = 2;
 
     // Set PHPMailer to use SMTP
     $mail->isSMTP();

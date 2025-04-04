@@ -5,6 +5,7 @@
 
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: http://localhost/Helpdesk/");  // Update to match your local XAMPP environment
+  // Update to match your local XAMPP environment
 
 if (!isset($_GET['subtopic'])) {
     echo json_encode([]);
