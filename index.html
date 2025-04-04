@@ -1,0 +1,467 @@
+<?php
+// index.php
+// This is your updated file with PHP logic to handle dynamic content (approved files)
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Force IE to use its latest rendering engine -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Help Desk</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <!-- Include fetch polyfill for IE -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.6.2/fetch.min.js"></script>
+</head>
+<body>
+
+  <!-- Logo -->
+  <img src="Images/Oracle.png" alt="My downloaded image" class="top-left">
+
+  <!-- Help Section with Search Bar -->
+  <div class="help-section">
+    <h2>What can we help you with?</h2>
+    <div class="search-container">
+      <img src="Icons/search.png" alt="Search Icon" class="search-icon">
+      <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchFunction()">
+    </div>
+  </div>
+
+  <!-- ====================== WORKING INSTRUCTIONS ====================== -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-1','arrow-1')">
+    <img src="Icons/information-pamphlet.png" class="icon">
+    <span>Working Instructions <span id="arrow-1" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-1">
+    <ul>
+      <!-- Receivables -->
+      <li>
+        <a href="#" onclick="toggleSubTopics('wi-receivables-subtopics','arrow-wi-receivables'); event.stopPropagation();">
+          Receivables <span id="arrow-wi-receivables" class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="nested-subtopics" id="wi-receivables-subtopics">
+          <!-- Static PDF links remain as is -->
+          <li><a href="pdfs/working_instructions/receivables/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Create AR Transaction Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface AR Invoices.pdf" target="_blank">How to Interface AR Invoices</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface AR Pay Modes.pdf" target="_blank">How to Interface AR Pay Modes</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface Customer.pdf" target="_blank">How to Interface Customer</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
+          <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
+          <!-- Dynamically list approved Receivables files -->
+          <?php
+          $dir = 'uploads/wi-receivables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
+        </ul>
+      </li>
+
+      <!-- Payables -->
+      <li>
+        <a href="#" onclick="toggleSubTopics('wi-payables-subtopics','arrow-wi-payables'); event.stopPropagation();">
+          Payables <span id="arrow-wi-payables" class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="nested-subtopics" id="wi-payables-subtopics">
+          <li><a href="pdfs/working_instructions/payables/Delegating PR Approval.pdf" target="_blank">Delegating PR Approval</a></li>
+          <li><a href="pdfs/working_instructions/payables/APPROVING AR ADJUSTMENTS.pdf" target="_blank">Approving AR Adjustments</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Setup a Supplier .pdf" target="_blank">How to setup a supplier</a></li>
+          <li><a href="pdfs/working_instructions/payables/lodging-and-communication-allowance.pdf" target="_blank">Lodging and Communication Allowance</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Book a Debit Memo.pdf" target="_blank">How to Book a Debit Memo</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Book a Prepayment.pdf" target="_blank">How to Book a Prepayment</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Book a Standard Invoice .pdf" target="_blank">How to Book a Standard Invoice</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Book an Expense Report.pdf" target="_blank">How to Book an Expense Report</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Interface AP Invoice.pdf" target="_blank">How to Interface AP Invoice</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Interface Non-Supplier (Non-Trade).pdf" target="_blank">How to Interface Non-Supplier (Non-Trade)</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Interface Supplier (Trade).pdf" target="_blank">How to Interface Supplier (Trade)</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Prepare a Prepayment.pdf" target="_blank">How to Prepare a Prepayment</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Prepare a Refund.pdf" target="_blank">How to Prepare a Refund</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Prepare an Online Payment .pdf" target="_blank">How to Prepare an Online Payment</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Upload Check.pdf" target="_blank">How to Upload Check</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Upload Payment.pdf" target="_blank">How to Upload Payment</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Generate a Voucher.pdf">How to Generate a Voucher</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Validate an Invoice.pdf" target="_blank">How to Validate an Invoice</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Interface Lodging and  Communication Allowance.pdf">How to Interface Lodging and Communication Allowance</a></li>
+          <li><a href="pdfs/working_instructions/payables/How to Upload Payment.pdf">How to Upload Payment</a></li>
+          <!-- Dynamically list approved Payables files -->
+          <?php
+          $dir = 'uploads/wi-payables-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
+        </ul>
+      </li>
+
+      <!-- General Ledger -->
+      <li>
+        <a href="#" onclick="toggleSubTopics('wi-gl-subtopics','arrow-wi-gl'); event.stopPropagation();">
+          General Ledger <span id="arrow-wi-gl" class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="nested-subtopics" id="wi-gl-subtopics">
+          <li><a href="pdfs/working_instructions/general_ledger/How to Interface Sales.pdf" target="_blank">How to Interface Sales</a></li>
+          <li><a href="pdfs/working_instructions/general_ledger/How to Interface Payroll.pdf" target="_blank">How to Interface Payroll</a></li>
+          <li><a href="pdfs/working_instructions/general_ledger/NT_Workflow_User Manual.pdf" target="_blank">NT Workflow User Manual</a></li>
+          <li><a href="pdfs/working_instructions/general_ledger/How to Open or Close a Period.pdf" target="_blank">How to Open or Close a period</a></li>
+          <li><a href="pdfs/working_instructions/general_ledger/How to Create Accounting.pdf" target="_blank">How to Create Accounting</a></li>
+          <li><a href="pdfs/working_instructions/general_ledger/How to Create Chart of Account.pdf" target="_blank">How to create Chart of Account</a></li>
+          <!-- Dynamically list approved General Ledger files -->
+          <?php
+          $dir = 'uploads/wi-gl-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
+        </ul>
+      </li>
+
+      <!-- Purchasing -->
+      <li>
+        <a href="#" onclick="toggleSubTopics('wi-purchasing-subtopics','arrow-wi-purchasing'); event.stopPropagation();">
+          Purchasing <span id="arrow-wi-purchasing" class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="nested-subtopics" id="wi-purchasing-subtopics">
+          <li><a href="pdfs/working_instructions/purchasing/Creating Purchase Request.pdf" target="_blank">Creating Purchase Request</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Create New Store Location.pdf" target="_blank">How to Create New Store Location</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Approve Purchase Request V2.pdf" target="_blank">How to Approve Purchase Request V2</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Approve Purchase Request.pdf" target="_blank">How to Approve Purchase Request</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Auto Create Purchase Order V2.pdf" target="_blank">How to Auto Create Purchase Order V2</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Auto Create Purchase Order.pdf" target="_blank">How to Auto Create Purchase Order</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Close Purchase Request.pdf" target="_blank">How to Close Purchase Request</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Create Purchase Request V2.pdf" target="_blank">How to Create Purchase Request V2</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Create Purchase Request.pdf" target="_blank">How to Create Purchase Request</a></li>
+          <li><a href="pdfs/working_instructions/purchasing/How to Delegate PR Approval V2.pdf" target="_blank">How to Delegate PR Approval V2</a></li>
+          <!-- Dynamically list approved Purchasing files -->
+          <?php
+          $dir = 'uploads/wi-purchasing-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
+        </ul>
+      </li>
+
+      <!-- Oracle Guides -->
+      <li>
+        <a href="#" onclick="toggleSubTopics('wi-oracle-guides-subtopics','arrow-wi-oracle-guides'); event.stopPropagation();">
+          Oracle Guides <span id="arrow-wi-oracle-guides" class="dropdown-arrow">▼</span>
+        </a>
+        <ul class="nested-subtopics" id="wi-oracle-guides-subtopics">
+          <li><a href="pdfs/working_instructions/oracle_guides/Mozilla Fix - PDF Automatically downloads when opened through the Helpdesk.pdf" target="_blank">Mozilla Fix - PDF Automatically downloads</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/Rose Pharmacy Helpdesk Source Code Modification Manual.pdf" target="_blank">Rose Pharmacy Helpdesk Source Code Modification Manual</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/ORACLE USER INTERFACE NAVIGATION.pdf" target="_blank">Oracle User Interface Navigation</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/Oracle Interface Guide.pdf" target="_blank">Oracle Interface Guide</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/Oracle Reports Glossary.pdf" target="_blank">Oracle Reports Glossary</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/Other Guides for FBA.pdf" target="_blank">Other Guides for FBA</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/oracle-bugs-and-fixes.pdf" target="_blank">Oracle Bugs and Fixes</a></li>
+          <li><a href="pdfs/working_instructions/oracle_guides/how-to-create-new-store-location.pdf" target="_blank">How to Create New Store Location</a></li>
+          <!-- Dynamically list approved Oracle Guides files -->
+          <?php
+          $dir = 'uploads/wi-oracle-guides-subtopics';
+          if (is_dir($dir)) {
+              $files = array_diff(scandir($dir), array('.', '..'));
+              foreach ($files as $file) {
+                  $displayName = pathinfo($file, PATHINFO_FILENAME);
+                  echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+              }
+          }
+          ?>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ====================== SOP ====================== -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-2','arrow-2')">
+    <img src="Icons/standard-operating-procedures.png" class="icon">
+    <span>SOP<span id="arrow-2" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-2">
+    <ul>
+      <!-- <li><a href="pdfs/How to Generate BIR Form 2307.pdf" target="_blank">How to Generate BIR Form 2307</a></li>
+      <li><a href="pdfs/How to Generate Daily Collection Report.pdf" target="_blank">How to Generate Daily Collection Report</a></li>
+      <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
+       Dynamically list approved SOP files -->
+      <?php
+      $dir = 'uploads/so-sop-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
+    </ul>
+  </div>
+
+  <!-- ====================== FUNCTIONAL SPECIFICATIONS ====================== -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-4','arrow-4')">
+    <img src="Icons/design-resources.png" class="icon">
+    <span>Functional Specifications<span id="arrow-4" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-4">
+    <ul>
+      <!----<li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
+      <li><a href="pdfs/functional_specifications/receivables/AP Vendor Interface Enhancement.pdf" target="_blank">AP Vendor Interface Enhancement</a></li>
+       Dynamically list approved Functional Specifications files -->
+      <?php
+      $dir = 'uploads/fs-functional-specifications-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
+    </ul>
+  </div>
+
+  <!-- ====================== PROCESS FLOW ====================== -->
+  <div class="main-title" onclick="toggleSubTopics('subtopics-3','arrow-3')">
+    <img src="Icons/workflow.png" class="icon">
+    <span>Process Flow <span id="arrow-3" class="dropdown-arrow">▼</span></span>
+  </div>
+  <div class="subtopics-container" id="subtopics-3">
+    <ul>
+      <!----<li><a href="file7.html">Process Step 1</a></li>
+      <li><a href="file8.html">Process Step 2</a></li> -->
+      <?php
+      $dir = 'uploads/pf-process-flow-subtopics';
+      if (is_dir($dir)) {
+          $files = array_diff(scandir($dir), array('.', '..'));
+          foreach ($files as $file) {
+              $displayName = pathinfo($file, PATHINFO_FILENAME);
+              echo "<li><a href=\"$dir/$file\" target=\"_blank\">$displayName</a></li>";
+          }
+      }
+      ?>
+    </ul>
+  </div>
+
+  <div id="adminPasscodeSection">
+  <div class="group">
+    <svg class="icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linejoin="round" stroke-linecap="round"></path>
+    </svg>
+    <input class="input" type="password" id="adminPasscode" placeholder="password">
+    <button onclick="verifyPasscode()">Enter</button>
+  </div>
+</div>
+
+  <!-- ====================== ADD FILE SECTION ====================== -->
+  <div id="addFileContainer" style="display: none;">
+    <button type="button" class="button" onclick="toggleAddFileForm()">
+      <span class="button__text">Add File</span>
+      <span class="button__icon">
+        <!-- Optional SVG plus icon; if IE has trouble, you can use an external image instead -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24"
+             stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+             stroke="currentColor" height="24" fill="none" class="svg">
+          <line y2="19" y1="5" x2="12" x1="12"></line>
+          <line y2="12" y1="12" x2="19" x1="5"></line>
+        </svg>
+      </span>
+    </button>
+    <div id="addFileForm" style="display: none;">
+      <input type="file" id="newFileInput">
+      <input type="text" id="fileTitle" placeholder="File Title">
+      <select id="fileCategory">
+        <option value="wi-receivables-subtopics">Receivables (Working Instructions)</option>
+        <option value="wi-payables-subtopics">Payables (Working Instructions)</option>
+        <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
+        <option value="wi-purchasing-subtopics">Purchasing (Working Instructions)</option>
+        <option value="wi-oracle-guides-subtopics">Oracle Guides (Working Instructions)</option>
+        <option value="so-sop-subtopics">SOP</option>
+        <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
+        <option value="pf-process-flow-subtopics">Process Flow</option>
+      </select>
+      <button class="upload-btn" onclick="uploadFile()">Upload</button>
+    </div>
+  </div>
+
+  <!-- ========== JavaScript Section ========== -->
+  <script>
+
+
+    // Define the base URL for your PHP back end (adjust if needed)
+    const backendUrl = "https://yourphpbackenddomain.com/";
+
+    /* -------------------- Search Function -------------------- */
+    window.searchFunction = function() {
+  var input = document.getElementById("search-bar").value.toLowerCase();
+  var mainTitles = document.querySelectorAll(".main-title");
+
+  // Loop through each main title (each category)
+  for (var i = 0; i < mainTitles.length; i++) {
+    var mainTitle = mainTitles[i];
+    // Assume the subtopics container is the next sibling
+    var container = mainTitle.nextElementSibling;
+    var lis = container.getElementsByTagName("li");
+
+    if (input === "") {
+      // When search is empty, show the main title but close the container
+      mainTitle.style.display = "block";
+      container.style.display = "none";
+      if (container.classList) {
+        container.classList.remove("show");
+      }
+      // Reset each li to be visible (for next search)
+      for (var j = 0; j < lis.length; j++) {
+        lis[j].style.display = "block";
+      }
+    } else {
+      // When there is search input, check each li item
+      var matchFound = false;
+      for (var j = 0; j < lis.length; j++) {
+        var li = lis[j];
+        var text = li.textContent || li.innerText;
+        if (text.toLowerCase().indexOf(input) !== -1) {
+          li.style.display = "block";
+          matchFound = true;
+        } else {
+          li.style.display = "none";
+        }
+      }
+      // If any match is found, show the main title and container; otherwise, hide them
+      if (matchFound) {
+        mainTitle.style.display = "block";
+        container.style.display = "block";
+        if (container.classList) {
+          container.classList.add("show");
+        }
+      } else {
+        mainTitle.style.display = "none";
+        container.style.display = "none";
+        if (container.classList) {
+          container.classList.remove("show");
+        }
+      }
+    }
+  }
+};
+
+
+    /* -------------------- Toggle Subtopics -------------------- */
+    window.toggleSubTopics = function(contentId, arrowId, event) {
+      if (event) { event.preventDefault(); }
+      var subtopics = document.getElementById(contentId);
+      var arrow = document.getElementById(arrowId);
+      // Use classList.toggle if available; otherwise, fallback
+      if (subtopics.classList) {
+        subtopics.classList.toggle("show");
+        if (arrow) {
+          arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
+        }
+      } else {
+        if (subtopics.className.indexOf("show") === -1) {
+          subtopics.className += " show";
+          if (arrow) { arrow.textContent = "▲"; }
+        } else {
+          subtopics.className = subtopics.className.replace(/\s?show/, "");
+          if (arrow) { arrow.textContent = "▼"; }
+        }
+      }
+    };
+
+    /* -------------------- File Upload -------------------- */
+    function uploadFile() {
+  var fileInput = document.getElementById('newFileInput');
+  var file = fileInput.files[0];
+  var fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
+  var fileCategory = document.getElementById('fileCategory').value;
+
+  if (!file) {
+    alert('Please select a file.');
+    return;
+  }
+
+  var formData = new FormData();
+  formData.append('uploadedFile', file);
+  formData.append('fileTitle', fileTitle);
+  formData.append('fileCategory', fileCategory);
+
+  // If fetch is available, use it; otherwise, use XMLHttpRequest
+  if (window.fetch) {
+    fetch('upload.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) { 
+      return response.text(); 
+    })
+    .then(function(data) {
+      alert(data);
+      // Optionally reload the page to see new files (once approved)
+      // location.reload();
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      alert('Error uploading file.');
+    });
+  } else {
+    // Fallback for IE using XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'upload.php', true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        alert(xhr.responseText);
+      } else {
+        alert('Error uploading file.');
+      }
+    };
+    xhr.onerror = function() {
+      alert('Error uploading file.');
+    };
+    xhr.send(formData);
+  }
+
+  // Reset inputs
+  fileInput.value = "";
+  document.getElementById('fileTitle').value = "";
+}
+
+    /* -------------------- Toggle Add File Form -------------------- */
+    function toggleAddFileForm() {
+      var form = document.getElementById('addFileForm');
+      if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+      }
+    }
+
+    function verifyPasscode() {
+      var passcodeInput = document.getElementById('adminPasscode');
+      var passcode = passcodeInput.value.trim();
+        if (passcode === "helpdesk123") {
+          document.getElementById('addFileContainer').style.display = 'block';
+          document.getElementById('adminPasscodeSection').style.display = 'none';
+        } else {
+    alert("Incorrect passcode! Please try again.");
+        }
+}
+
+  </script>
+</body>
+</html>
