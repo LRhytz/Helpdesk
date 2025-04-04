@@ -1,11 +1,15 @@
 <?php
 header("Access-Control-Allow-Origin: http://localhost/Helpdesk/");
 
-$adminEmail = "rhytz.133@gmail.com"; // Admin email for approvals
+// Set the admin email for approvals
+$adminEmail = "smjbolotaulo@gmail.com"; 
+
 $basePendingDir = 'uploads/pending/';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['uploadedFile']) && $_FILES['uploadedFile']['error'] === UPLOAD_ERR_OK) {
+        
+        // Get category from POST data, or default to 'uncategorized'
         $category = $_POST['fileCategory'] ?? 'uncategorized';
 
         // Ensure pending subfolder exists
@@ -14,28 +18,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($pendingDir, 0777, true);
         }
 
-        // Original file name
+        // Get original file name and user-supplied title
         $originalFileName = basename($_FILES['uploadedFile']['name']);
-
-        // User-supplied title or fallback to original file name
         $userTitle = trim($_POST['fileTitle']) ?: $originalFileName;
 
-        // Move to the pending folder using original filename
+        // Build the target file path in the pending folder
         $targetFilePath = $pendingDir . $originalFileName;
 
         if (move_uploaded_file($_FILES['uploadedFile']['tmp_name'], $targetFilePath)) {
             // Generate a unique token
             $token = md5(uniqid(rand(), true));
 
-            // Prepare an entry for pending_tokens.json
+            // Build the entry using variables defined above, including admin email
             $entry = [
-                'token'    => $token,
-                'file'     => $targetFilePath,   // Full path to the file in pending folder
-                'category' => $category,
-                // We'll keep the original filename but also store the userTitle
-                'filename' => $originalFileName,
-                'title'    => $userTitle,
-                'uploaded_at' => time()
+                'token'       => $token,
+                'file'        => $targetFilePath,         // Full path to the file in pending folder
+                'category'    => $category,
+                'filename'    => $originalFileName,
+                'title'       => $userTitle,
+                'uploaded_at' => time(),
+                'email'       => $adminEmail              // Store the admin email here
             ];
 
             // Append this entry to pending_tokens.json
@@ -48,8 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             file_put_contents($tokensFile, json_encode($tokensData, JSON_PRETTY_PRINT));
 
             // Build approval/rejection links
-            $approvalLink  = "http://localhost/Helpdesk/process_approval.php?action=approve&token=" . urlencode($token);
-            $rejectionLink = "http://localhost/Helpdesk/process_approval.php?action=reject&token=" . urlencode($token);
+            $approvalLink  = "http://10.77.20.27/Helpdesk/process_approval.php?action=approve&token=" . urlencode($token);
+            $rejectionLink = "http://10.77.20.27/Helpdesk/process_approval.php?action=reject&token=" . urlencode($token);
+
 
             // Email subject & message
             $subject = "New File Upload Pending Approval (Attached PDF)";
@@ -67,10 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fileDataEncoded = chunk_split(base64_encode($fileData));
             $fileNameForAttachment = $originalFileName;
 
-            // MIME boundary
+            // Define a MIME boundary
             $uid = md5(uniqid(time()));
 
-            // Email headers
+            // Build email headers
             $fromName  = "Help Desk";
             $fromEmail = "no-reply@example.com"; // Adjust if necessary
             $toEmail   = $adminEmail;
@@ -80,12 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $header .= "MIME-Version: 1.0\r\n";
             $header .= "Content-Type: multipart/mixed; boundary=\"$uid\"\r\n\r\n";
 
-            // Build the MIME body
+            // Build the MIME body for the email
             $emailBody  = "--$uid\r\n";
             $emailBody .= "Content-Type: text/plain; charset=\"UTF-8\"\r\n";
             $emailBody .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
             $emailBody .= $messageText."\r\n\r\n";
-            // The attachment part
+            // Attachment part
             $emailBody .= "--$uid\r\n";
             $emailBody .= "Content-Type: application/pdf; name=\"$fileNameForAttachment\"\r\n";
             $emailBody .= "Content-Transfer-Encoding: base64\r\n";
@@ -93,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $emailBody .= $fileDataEncoded."\r\n\r\n";
             $emailBody .= "--$uid--";
 
-            // Send email
+            // Send email using PHP's mail() function
             if (mail($toEmail, $subject, $emailBody, $header)) {
                 echo "File uploaded successfully and email sent with attached PDF.";
             } else {

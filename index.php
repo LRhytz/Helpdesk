@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Force IE to use its latest rendering engine -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Help Desk</title>
@@ -196,10 +197,10 @@
   </div>
   <div class="subtopics-container" id="subtopics-2">
     <ul>
-      <li><a href="pdfs/How to Generate BIR Form 2307.pdf" target="_blank">How to Generate BIR Form 2307</a></li>
+      <!-- <li><a href="pdfs/How to Generate BIR Form 2307.pdf" target="_blank">How to Generate BIR Form 2307</a></li>
       <li><a href="pdfs/How to Generate Daily Collection Report.pdf" target="_blank">How to Generate Daily Collection Report</a></li>
       <li><a href="pdfs/How to Interface RTV.pdf" target="_blank">How to Interface RTV</a></li>
-      <!-- Dynamically list approved SOP files -->
+       Dynamically list approved SOP files -->
       <?php
       $dir = 'uploads/so-sop-subtopics';
       if (is_dir($dir)) {
@@ -220,9 +221,9 @@
   </div>
   <div class="subtopics-container" id="subtopics-4">
     <ul>
-      <li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
+      <!----<li><a href="pdfs/functional_specifications/receivables/AP Invoice Listing.pdf" target="_blank">AP Invoice Listing</a></li>
       <li><a href="pdfs/functional_specifications/receivables/AP Vendor Interface Enhancement.pdf" target="_blank">AP Vendor Interface Enhancement</a></li>
-      <!-- Dynamically list approved Functional Specifications files -->
+       Dynamically list approved Functional Specifications files -->
       <?php
       $dir = 'uploads/fs-functional-specifications-subtopics';
       if (is_dir($dir)) {
@@ -243,9 +244,8 @@
   </div>
   <div class="subtopics-container" id="subtopics-3">
     <ul>
-      <li><a href="file7.html">Process Step 1</a></li>
-      <li><a href="file8.html">Process Step 2</a></li>
-      <!-- Dynamically list approved Process Flow files -->
+      <!----<li><a href="file7.html">Process Step 1</a></li>
+      <li><a href="file8.html">Process Step 2</a></li> -->
       <?php
       $dir = 'uploads/pf-process-flow-subtopics';
       if (is_dir($dir)) {
@@ -259,8 +259,18 @@
     </ul>
   </div>
 
+  <div id="adminPasscodeSection">
+  <div class="group">
+    <svg class="icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linejoin="round" stroke-linecap="round"></path>
+    </svg>
+    <input class="input" type="password" id="adminPasscode" placeholder="password">
+    <button onclick="verifyPasscode()">Enter</button>
+  </div>
+</div>
+
   <!-- ====================== ADD FILE SECTION ====================== -->
-  <div id="addFileContainer">
+  <div id="addFileContainer" style="display: none;">
     <button type="button" class="button" onclick="toggleAddFileForm()">
       <span class="button__text">Add File</span>
       <span class="button__icon">
@@ -292,19 +302,65 @@
 
   <!-- ========== JavaScript Section ========== -->
   <script>
+
+
     // Define the base URL for your PHP back end (adjust if needed)
     const backendUrl = "https://yourphpbackenddomain.com/";
 
     /* -------------------- Search Function -------------------- */
     window.searchFunction = function() {
-      var input = document.getElementById("search-bar").value.toLowerCase();
-      var topics = document.querySelectorAll(".main-title, .subtopics-container ul li");
-      for (var i = 0; i < topics.length; i++) {
-        var topic = topics[i];
-        var text = (topic.textContent || topic.innerText).toLowerCase();
-        topic.style.display = (text.indexOf(input) !== -1 || input === "") ? "block" : "none";
+  var input = document.getElementById("search-bar").value.toLowerCase();
+  var mainTitles = document.querySelectorAll(".main-title");
+
+  // Loop through each main title (each category)
+  for (var i = 0; i < mainTitles.length; i++) {
+    var mainTitle = mainTitles[i];
+    // Assume the subtopics container is the next sibling
+    var container = mainTitle.nextElementSibling;
+    var lis = container.getElementsByTagName("li");
+
+    if (input === "") {
+      // When search is empty, show the main title but close the container
+      mainTitle.style.display = "block";
+      container.style.display = "none";
+      if (container.classList) {
+        container.classList.remove("show");
       }
-    };
+      // Reset each li to be visible (for next search)
+      for (var j = 0; j < lis.length; j++) {
+        lis[j].style.display = "block";
+      }
+    } else {
+      // When there is search input, check each li item
+      var matchFound = false;
+      for (var j = 0; j < lis.length; j++) {
+        var li = lis[j];
+        var text = li.textContent || li.innerText;
+        if (text.toLowerCase().indexOf(input) !== -1) {
+          li.style.display = "block";
+          matchFound = true;
+        } else {
+          li.style.display = "none";
+        }
+      }
+      // If any match is found, show the main title and container; otherwise, hide them
+      if (matchFound) {
+        mainTitle.style.display = "block";
+        container.style.display = "block";
+        if (container.classList) {
+          container.classList.add("show");
+        }
+      } else {
+        mainTitle.style.display = "none";
+        container.style.display = "none";
+        if (container.classList) {
+          container.classList.remove("show");
+        }
+      }
+    }
+  }
+};
+
 
     /* -------------------- Toggle Subtopics -------------------- */
     window.toggleSubTopics = function(contentId, arrowId, event) {
@@ -330,41 +386,60 @@
 
     /* -------------------- File Upload -------------------- */
     function uploadFile() {
-      var fileInput = document.getElementById('newFileInput');
-      var file = fileInput.files[0];
-      var fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
-      var fileCategory = document.getElementById('fileCategory').value;
+  var fileInput = document.getElementById('newFileInput');
+  var file = fileInput.files[0];
+  var fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
+  var fileCategory = document.getElementById('fileCategory').value;
 
-      if (!file) {
-        alert('Please select a file.');
-        return;
-      }
+  if (!file) {
+    alert('Please select a file.');
+    return;
+  }
 
-      var formData = new FormData();
-      formData.append('uploadedFile', file);
-      formData.append('fileTitle', fileTitle);
-      formData.append('fileCategory', fileCategory);
+  var formData = new FormData();
+  formData.append('uploadedFile', file);
+  formData.append('fileTitle', fileTitle);
+  formData.append('fileCategory', fileCategory);
 
-      // Send to upload.php
-      fetch('upload.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(function(response) { return response.text(); })
-      .then(function(data) {
-        alert(data);
-        // Optionally reload the page to see new files (once approved)
-        // location.reload();
-      })
-      .catch(function(error) {
-        console.error('Error:', error);
+  // If fetch is available, use it; otherwise, use XMLHttpRequest
+  if (window.fetch) {
+    fetch('upload.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) { 
+      return response.text(); 
+    })
+    .then(function(data) {
+      alert(data);
+      // Optionally reload the page to see new files (once approved)
+      // location.reload();
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
+      alert('Error uploading file.');
+    });
+  } else {
+    // Fallback for IE using XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'upload.php', true);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        alert(xhr.responseText);
+      } else {
         alert('Error uploading file.');
-      });
+      }
+    };
+    xhr.onerror = function() {
+      alert('Error uploading file.');
+    };
+    xhr.send(formData);
+  }
 
-      // Reset inputs
-      fileInput.value = "";
-      document.getElementById('fileTitle').value = "";
-    }
+  // Reset inputs
+  fileInput.value = "";
+  document.getElementById('fileTitle').value = "";
+}
 
     /* -------------------- Toggle Add File Form -------------------- */
     function toggleAddFileForm() {
@@ -375,6 +450,18 @@
         form.style.display = 'none';
       }
     }
+
+    function verifyPasscode() {
+      var passcodeInput = document.getElementById('adminPasscode');
+      var passcode = passcodeInput.value.trim();
+        if (passcode === "helpdesk123") {
+          document.getElementById('addFileContainer').style.display = 'block';
+          document.getElementById('adminPasscodeSection').style.display = 'none';
+        } else {
+    alert("Incorrect passcode! Please try again.");
+        }
+}
+
   </script>
 </body>
 </html>
