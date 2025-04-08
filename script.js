@@ -55,11 +55,12 @@ function fetchApprovedFiles(subtopic, containerId) {
   
   // Passcode verification
   function verifyPasscode() {
-    const passcodeInput = document.getElementById('adminPasscode');
-    const passcode = passcodeInput.value.trim();
-    if (passcode === "helpdesk123") {
+    var passcodeInput = document.getElementById('adminPasscode');
+    var passcode = passcodeInput.value.trim();
+    if (passcode === "helpdesk123") {  // Correct passcode
+      // Show the 'Add File' button and hide the password input section
       document.getElementById('addFileContainer').style.display = 'block';
-      document.getElementById('adminPasscodeSection').style.display = 'none';
+      document.getElementById('adminPasscodeSection').style.display = 'none';  // Hide passcode section
     } else {
       alert("Incorrect passcode! Please try again.");
     }
@@ -77,7 +78,7 @@ function fetchApprovedFiles(subtopic, containerId) {
   function toggleAddFileForm() {
     var form = document.getElementById('addFileForm');
     if (form.style.display === 'none' || form.style.display === '') {
-      form.style.display = 'flex'; // Show the form as a flex container
+      form.style.display = 'flex'; // Show the form
     } else {
       form.style.display = 'none';  // Hide the form
     }

@@ -1,105 +1,82 @@
 /* Import your font family (optional) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-/* ===================== BUTTON STYLES ===================== */
-/* Added -ms-flexbox and -ms-flex-align for IE10/11 compatibility */
-/* Your existing CSS code */
-
-/* Add this for Button Styles (if you already didn't include it) */
+/* ===================== NEW BUTTON STYLES ===================== */
 .button {
-  position: relative;
-  padding: 14px 40px;
+  border: none;
+  display: flex;
+  padding: 0.75rem 1.5rem;
+  background-color: #488aec;
+  color: #ffffff;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-align: center;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #00BFA6;  /* Solid border */
-  background-color: #00BFA6;
   text-transform: uppercase;
-  letter-spacing: 1px;  /* Slightly adjusted spacing for better visual */
-  border-radius: 10px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  transition: all 0.4s;
-  font-size: 16px; /* Adjusted font size */
-  text-align: center;
-}
-
-/* Additional styling if necessary (for the rest of your CSS) */
-
-
-
-/* Transition applied to all elements inside the button */
-.button, 
-.button__icon, 
-.button__text {
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-
-/* Button text moves on hover */
-.button .button__text {
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-}
-
-.button:active .button__text {
-  color: #006e52;
-}
-/* Button icon container: added vendor prefixes for flex */
-.button .button__icon {
-  position: absolute;
-  transform: translateX(109px);
-  -ms-transform: translateX(109px);
-  height: 100%;
-  width: 39px;
-  background-color: #34974d;
-  display: -ms-flexbox; /* IE10/11 */
-  display: flex;
-  -ms-flex-align: center; /* IE10/11 */
+  vertical-align: middle;
   align-items: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  border-radius: 0.5rem;
+  user-select: none;
+  gap: 0.75rem;
+  box-shadow:
+    0 4px 6px -1px #488aec31,
+    0 2px 4px -1px #488aec17;
+  transition: all 0.6s ease;
 }
 
-.button span:last-child {
-  display: none;
-}
-
-
-/* SVG styling for icon */
-.button .svg {
-  width: 20px;
-  height: 20px;
-  stroke: #fff;
-}
-
-/* Hover and active states for button */
 .button:hover {
-  background-color: #fff;
-  color: #00BFA6;
+  box-shadow:
+    0 10px 15px -3px #488aec4f,
+    0 4px 6px -2px #488aec17;
 }
 
-.button:hover .button__text {
-  color: #00BFA6;
-}
-.button:hover .button__icon {
-  width: 148px;
-  transform: translateX(0);
-  -ms-transform: translateX(0);
-}
-.button:active .button__icon {
-  background-color: #2e8644;
-}
+.button:focus,
 .button:active {
-  background-color: #87dbd0;
+  opacity: 0.85;
+  box-shadow: none;
 }
 
+.button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ===================== ADD FILE FORM STYLES ===================== */
+#addFileForm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;  /* Adds spacing between each element */
+}
+
+#addFileForm input,
+#addFileForm select {
+  flex: 1;  /* Ensures equal space distribution */
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Form inputs */
+#addFileForm input,
+#addFileForm select,
+#addFileForm button.upload-btn {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+#addFileForm button.upload-btn {
+  background-color: #3aa856;
+  color: white;
+  cursor: pointer;
+}
+
+#addFileForm button.upload-btn:hover {
+  background-color: #34974d;
+}
 
 /* ===================== GENERAL PAGE STYLING ===================== */
 body {
@@ -124,6 +101,7 @@ body {
   margin-top: 20px;
   margin-bottom: 30px;
 }
+
 .help-section h2 {
   font-size: 24px;
   color: #333;
@@ -137,6 +115,7 @@ body {
   width: 45%;
   margin: 0 auto;
 }
+
 .search-container .search-icon {
   position: absolute;
   left: 14px;
@@ -163,13 +142,13 @@ body {
   transition: all 0.3s ease-in-out;
   box-sizing: border-box;
 }
+
 #search-bar:focus + .search-icon {
   transform: translateY(-50%) scale(1.1);
   opacity: 1;
 }
 
 /* ===================== MAIN SECTION TITLES ===================== */
-/* Added vendor prefixes for flexbox */
 .main-title {
   background-color: #fff;
   color: #333;
@@ -182,15 +161,13 @@ body {
   font-size: 18px;
   text-align: center;
   font-weight: 500;
-  display: -ms-flexbox; /* IE10/11 */
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   justify-content: center;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
   transition: background-color 0.3s ease-in-out;
 }
+
 .main-title:hover {
   background-color: #eee;
 }
@@ -209,22 +186,12 @@ body {
   border: 1px solid #ddd;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
 }
+
 .subtopics-container.show {
   max-height: 9999px;
   opacity: 1;
   padding: 12px;
   transition: max-height 0.6s ease-in-out, padding 0.3s ease;
-}
-
-/* ===================== SUBTOPICS LIST ===================== */
-.subtopics-container ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.subtopics-container ul li {
-  margin: 5px 0;
-  padding-left: 10px;
 }
 
 /* ===================== SUBTOPICS LINK ===================== */
@@ -241,6 +208,7 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
   border: 1px solid #ddd;
 }
+
 .subtopics-container ul li a:hover {
   background-color: #e0e0e0;
   transform: translateX(5px);
@@ -254,14 +222,16 @@ body {
   transition: max-height 0.4s ease, opacity 0.4s ease;
   padding-left: 20px;
 }
+
 .nested-subtopics.show {
   max-height: 9999px;
   opacity: 1;
 }
-/* Fix for Expanded Height Issue After Search */
+
 .subtopics-container.show ul {
   display: block !important;
 }
+
 .subtopics-container:not(.show) ul {
   display: none;
 }
@@ -272,104 +242,42 @@ body {
   height: 25px;
   margin-right: 8px;
 }
+
 .subtopics-container ul li a[data-icon-added="true"]::before {
   display: none;
 }
 
-/* ===================== ADD FILE SECTION ===================== */
-#addFileContainer {
-  margin: 20px;
-}
-#addFileForm {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-#addFileForm input,
-#addFileForm select {
-  flex: 1;
-}
-/* Form inputs */
-#addFileForm input,
-#addFileForm select,
-#addFileForm button.upload-btn {
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-right: 10px;
-}
-#addFileForm button.upload-btn {
-  background-color: #3aa856;
-  color: white;
-  cursor: pointer;
-}
-#addFileForm button.upload-btn:hover {
-  background-color: #34974d;
-}
-
+/* ===================== ADMIN PASSCODE SECTION ===================== */
 #adminPasscodeSection {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  /* If you want a simpler look: */
   border: none; 
   background: transparent; 
   padding: 0;
-
-  /* Or keep a small box: 
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  */
   z-index: 999;
 }
 
-
-
-/* STEP 2a: from Uiverse.io, slightly adapted */
 .group {
   display: inline-flex;
   align-items: center;
   position: relative;
   vertical-align: middle;
-  max-width: 220px; /* or your preferred width */
-  /* If you want to remove the existing border from #adminPasscodeSection,
-     you can set border: none; or background: transparent; here. */
-}
-
-/* The lock icon */
-.group .icon {
-  position: absolute;
-  left: 1rem;
-  fill: none;
-  width: 1rem;
-  height: 1rem;
-  color: #aaa; /* or stroke color you prefer */
+  max-width: 220px;
 }
 
 .icon {
-  /* remove position: absolute; */
   fill: none;
-  width: 16px;   /* smaller icon width */
-  height: 16px;  /* smaller icon height */
-  margin-right: 6px; /* some space between icon and input text */
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
 }
 
-.icon, 
-.input, 
-#adminPasscodeSection button {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-/* The input box */
 .input {
   width: 100%;
   height: 45px;
   line-height: 45px;
-  padding-left: 3rem;  /* space for the icon */
+  padding-left: 3rem;
   border: 2px solid transparent;
   border-radius: 10px;
   outline: none;
@@ -382,26 +290,25 @@ body {
   color: #94a3b8;
 }
 
-.input:focus, .input:hover {
-  outline: none;         /* remove the default focus outline */
-  border-color: #ccc;    /* or your color of choice */
+.input:focus,
+.input:hover {
+  outline: none;
+  border-color: #ccc;
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);      /* remove or reduce the highlight ring */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
-
-/* STEP 2b: style the button inside #adminPasscodeSection, if needed */
 #adminPasscodeSection button {
   display: inline-block;
-  height: 30px;       /* same as .input height */
+  height: 30px;
   width: 100px;
-  padding: 0 12px;    /* some horizontal space for text */
-  margin-left: 6px;   /* small gap from the input */
+  padding: 0 12px;
+  margin-left: 6px;
   border-radius: 6px;
   border: 1px solid #ccc;
   background: #f1f1f1;
   cursor: pointer;
-  font-size: 13px;    /* match input font size if desired */
+  font-size: 13px;
 }
 
 #adminPasscodeSection button:hover {
