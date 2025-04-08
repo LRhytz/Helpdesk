@@ -179,15 +179,19 @@
   <script>
     // Function to verify the admin passcode
     function verifyPasscode() {
-      var passcodeInput = document.getElementById('adminPasscode');
-      var passcode = passcodeInput.value.trim();
-      if (passcode === "helpdesk123") {
-        document.getElementById('addFileContainer').style.display = 'block';
-        document.getElementById('adminPasscodeSection').style.display = 'none';
-      } else {
-        alert("Incorrect passcode! Please try again.");
-      }
-    }
+  var passcodeInput = document.getElementById('adminPasscode');
+  var passcode = passcodeInput.value.trim(); // Trims any leading/trailing spaces
+
+  // Ensure correct password check
+  if (passcode === "helpdesk123") {
+    // If correct, display the file upload section
+    document.getElementById('addFileContainer').style.display = 'block';
+    document.getElementById('adminPasscodeSection').style.display = 'none';
+  } else {
+    // If incorrect, display an alert or an error message
+    alert("Incorrect passcode! Please try again.");
+  }
+}
 
     // Fetch approved files for subtopics
     function fetchApprovedFiles(subtopic, containerId) {
