@@ -55,18 +55,19 @@
 
 #addFileForm {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  gap: 10px; /* Space between elements */
-  width: 100%;  /* Make sure form occupies the full width of its container */
+  flex-direction: row; /* Change to horizontal layout */
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 #addFileForm input,
 #addFileForm select {
   padding: 10px;
   border-radius: 4px;
-  width: 100%; /* Ensure form elements take up 100% width */
-  max-width: 400px; /* Maximum width of the form elements */
-  margin: 0 auto; /* Center the form elements */
+  width: 100%;
+  max-width: 250px; /* Restrict width of inputs */
 }
 
 #addFileForm button.upload-btn {
@@ -74,16 +75,13 @@
   color: white;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%; /* Make button take full width */
-  max-width: 400px; /* Limit width */
-  padding: 12px;
-  margin: 0 auto;
+  width: auto;
+  padding: 12px 20px;
 }
 
 #addFileForm button.upload-btn:hover {
   background-color: #34974d;
 }
-
 /* ===================== GENERAL PAGE STYLING ===================== */
 body {
   margin: 0;
