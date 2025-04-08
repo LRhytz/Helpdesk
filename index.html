@@ -113,54 +113,36 @@
       <div id="process-flow-files"></div>
     </ul>
   </div>
-<!-- ====================== ADD FILE SECTION ====================== -->
-<<!-- Add File Button with Icon -->
-<div id="addFileContainer" style="display: none;">
-  <!-- Add File button appears after password entry -->
-  <button type="button" class="button" onclick="toggleAddFileForm()">
-    <svg
-      aria-hidden="true"
-      stroke="currentColor"
-      stroke-width="2"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-width="2"
-        stroke="#fffffff"
-        d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-      ></path>
-      <path
-        stroke-linejoin="round"
-        stroke-linecap="round"
-        stroke-width="2"
-        stroke="#fffffff"
-        d="M17 15V18M17 21V18M17 18H14M17 18H20"
-      ></path>
-    </svg>
-    ADD FILE
-  </button>
-  
-  <!-- File Upload Form hidden initially -->
-  <div id="addFileForm" style="display: none; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
-    <input type="file" id="newFileInput" style="flex: 1; padding: 10px; border-radius: 4px;">
-    <input type="text" id="fileTitle" placeholder="File Title" style="flex: 1; padding: 10px; border-radius: 4px;">
-    <select id="fileCategory" style="flex: 1; padding: 10px; border-radius: 4px;">
-      <option value="wi-receivables-subtopics">Receivables (Working Instructions)</option>
-      <option value="wi-payables-subtopics">Payables (Working Instructions)</option>
-      <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
-      <option value="wi-purchasing-subtopics">Purchasing (Working Instructions)</option>
-      <option value="wi-oracle-guides-subtopics">Oracle Guides (Working Instructions)</option>
-      <option value="so-sop-subtopics">SOP</option>
-      <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
-      <option value="pf-process-flow-subtopics">Process Flow</option>
-    </select>
-    <button class="upload-btn" onclick="uploadFile()" style="padding: 10px 20px; background-color: #3aa856; color: white; border-radius: 4px; cursor: pointer;">Upload</button>
+
+  <!-- ====================== ADD FILE SECTION ====================== -->
+  <div id="addFileContainer" style="display: none;">
+    <!-- Add File button appears after password entry -->
+    <button type="button" class="button" onclick="toggleAddFileForm()">
+      <svg aria-hidden="true" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-width="2" stroke="#fffffff" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke-linejoin="round" stroke-linecap="round"></path>
+        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#fffffff" d="M17 15V18M17 21V18M17 18H14M17 18H20"></path>
+      </svg>
+      ADD FILE
+    </button>
+
+    <!-- File Upload Form hidden initially -->
+    <div id="addFileForm" style="display: none; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+      <input type="file" id="newFileInput" style="flex: 1; padding: 10px; border-radius: 4px;">
+      <input type="text" id="fileTitle" placeholder="File Title" style="flex: 1; padding: 10px; border-radius: 4px;">
+      <select id="fileCategory" style="flex: 1; padding: 10px; border-radius: 4px;">
+        <option value="wi-receivables-subtopics">Receivables (Working Instructions)</option>
+        <option value="wi-payables-subtopics">Payables (Working Instructions)</option>
+        <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
+        <option value="wi-purchasing-subtopics">Purchasing (Working Instructions)</option>
+        <option value="wi-oracle-guides-subtopics">Oracle Guides (Working Instructions)</option>
+        <option value="so-sop-subtopics">SOP</option>
+        <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
+        <option value="pf-process-flow-subtopics">Process Flow</option>
+      </select>
+      <button class="upload-btn" onclick="uploadFile()" style="padding: 10px 20px; background-color: #3aa856; color: white; border-radius: 4px; cursor: pointer;">Upload</button>
+    </div>
   </div>
-</div>
+
   <!-- ====================== ADMIN PASSCODE ====================== -->
   <div id="adminPasscodeSection">
     <div class="group">
@@ -172,19 +154,21 @@
   <script>
     // Function to verify the admin passcode
     function verifyPasscode() {
-  var passcodeInput = document.getElementById('adminPasscode');
-  var passcode = passcodeInput.value.trim(); // Trims any leading/trailing spaces
+      var passcodeInput = document.getElementById('adminPasscode');
+      var passcode = passcodeInput.value.trim(); // Trims any leading/trailing spaces
 
-  // Ensure correct password check
-  if (passcode === "helpdesk123") {
-    // If correct, display the file upload section
-    document.getElementById('addFileContainer').style.display = 'block';
-    document.getElementById('adminPasscodeSection').style.display = 'none';
-  } else {
-    // If incorrect, display an alert or an error message
-    alert("Incorrect passcode! Please try again.");
-  }
-}
+      console.log("Entered password: ", passcode); // Log the entered password for debugging
+
+      // Ensure correct password check
+      if (passcode === "helpdesk123") {
+        // If correct, display the file upload section
+        document.getElementById('addFileContainer').style.display = 'block';
+        document.getElementById('adminPasscodeSection').style.display = 'none';
+      } else {
+        // If incorrect, display an alert or an error message
+        alert("Incorrect passcode! Please try again.");
+      }
+    }
 
     // Fetch approved files for subtopics
     function fetchApprovedFiles(subtopic, containerId) {
@@ -223,7 +207,7 @@
       formData.append('fileTitle', fileTitle);
       formData.append('fileCategory', fileCategory);
 
-      fetch('https://helpdeskpharmacy.infinityfreeapp.com/upload_file.php', {
+      fetch('https://helpdeskpharmacy.infinityfreeapp.com/upload.php', {
         method: 'POST',
         body: formData
       })
