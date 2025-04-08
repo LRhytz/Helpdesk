@@ -36,13 +36,6 @@
         </a>
         <ul class="nested-subtopics" id="wi-receivables-subtopics">
           <li><a href="pdfs/working_instructions/receivables/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Create AR Transaction Type and Receipt Activity.pdf" target="_blank">How to Create AR Transaction Type and Receipt Activity</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface AR Invoices.pdf" target="_blank">How to Interface AR Invoices</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface AR Pay Modes.pdf" target="_blank">How to Interface AR Pay Modes</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface Customer.pdf" target="_blank">How to Interface Customer</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface MISC Receipt.pdf" target="_blank">How to Interface MISC Receipt</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface SCD Refund.pdf" target="_blank">How to Interface SCD Refund</a></li>
-          <li><a href="pdfs/working_instructions/receivables/How to Interface Standard Receipt.pdf" target="_blank">How to Interface Standard Receipt</a></li>
           <!-- Dynamically list approved Receivables files -->
           <div id="receivables-files"></div>
         </ul>
@@ -59,35 +52,30 @@
         </ul>
       </li>
 
-      <!-- General Ledger Section -->
+      <!-- Other Sections (General Ledger, Purchasing, etc.)-->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-gl-subtopics','arrow-wi-gl'); event.stopPropagation();">
           General Ledger <span id="arrow-wi-gl" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-gl-subtopics">
-          <!-- Dynamically load approved files -->
           <div id="gl-files"></div>
         </ul>
       </li>
 
-      <!-- Purchasing Section -->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-purchasing-subtopics','arrow-wi-purchasing'); event.stopPropagation();">
           Purchasing <span id="arrow-wi-purchasing" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-purchasing-subtopics">
-          <!-- Dynamically load approved files -->
           <div id="purchasing-files"></div>
         </ul>
       </li>
 
-      <!-- Oracle Guides Section -->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-oracle-guides-subtopics','arrow-wi-oracle-guides'); event.stopPropagation();">
           Oracle Guides <span id="arrow-wi-oracle-guides" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-oracle-guides-subtopics">
-          <!-- Dynamically load approved files -->
           <div id="oracle-guides-files"></div>
         </ul>
       </li>
@@ -101,7 +89,6 @@
   </div>
   <div class="subtopics-container" id="subtopics-2">
     <ul>
-      <!-- Dynamically load SOP files -->
       <div id="sop-files"></div>
     </ul>
   </div>
@@ -113,7 +100,6 @@
   </div>
   <div class="subtopics-container" id="subtopics-4">
     <ul>
-      <!-- Dynamically load Functional Specification files -->
       <div id="functional-specifications-files"></div>
     </ul>
   </div>
@@ -125,12 +111,21 @@
   </div>
   <div class="subtopics-container" id="subtopics-3">
     <ul>
-      <!-- Dynamically load Process Flow files -->
       <div id="process-flow-files"></div>
     </ul>
   </div>
 
-  <!-- Add File Section -->
+  <!-- Add File Section with Password Protection -->
+  <div id="adminPasscodeSection">
+    <div class="group">
+      <svg class="icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linejoin="round" stroke-linecap="round"></path>
+      </svg>
+      <input class="input" type="password" id="adminPasscode" placeholder="password">
+      <button onclick="verifyPasscode()">Enter</button>
+    </div>
+  </div>
+
   <div id="addFileContainer" style="display: none;">
     <button type="button" class="button" onclick="toggleAddFileForm()">
       <span class="button__text">Add File</span>
@@ -176,7 +171,7 @@
       formData.append('fileTitle', fileTitle);
       formData.append('fileCategory', fileCategory);
 
-      fetch('https://your-infinityfree-endpoint/upload.php', {
+      fetch('https://helpdeskpharmacy.infinityfreeapp.com/upload_file.php', {
         method: 'POST',
         body: formData
       })
@@ -191,11 +186,11 @@
     }
 
     function fetchApprovedFiles(subtopic, containerId) {
-      fetch('https://your-infinityfree-endpoint/getApprovedFiles.php?subtopic=' + subtopic)
+      fetch('https://helpdeskpharmacy.infinityfreeapp.com/getApprovedFiles.php?subtopic=' + subtopic)
         .then(response => response.json())
         .then(data => {
           const container = document.getElementById(containerId);
-          container.innerHTML = ''; // Clear previous content
+          container.innerHTML = '';
 
           data.forEach(file => {
             const listItem = document.createElement('li');
@@ -220,6 +215,17 @@
       fetchApprovedFiles("fs-functional-specifications-subtopics", "functional-specifications-files");
       fetchApprovedFiles("pf-process-flow-subtopics", "process-flow-files");
     };
+
+    function verifyPasscode() {
+      var passcodeInput = document.getElementById('adminPasscode');
+      var passcode = passcodeInput.value.trim();
+      if (passcode === "helpdesk123") {
+        document.getElementById('addFileContainer').style.display = 'block';
+        document.getElementById('adminPasscodeSection').style.display = 'none';
+      } else {
+        alert("Incorrect passcode! Please try again.");
+      }
+    }
   </script>
 </body>
 </html>
