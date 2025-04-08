@@ -3,13 +3,14 @@
 
 /* ===================== BUTTON STYLES ===================== */
 /* Added -ms-flexbox and -ms-flex-align for IE10/11 compatibility */
+/* Your existing CSS code */
+
+/* Add this for Button Styles (if you already didn't include it) */
 .button {
   position: relative;
   padding: 14px 40px;
   cursor: pointer;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   justify-content: center;
   align-items: center;
   border: 2px dashed #00BFA6;
@@ -20,6 +21,9 @@
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: all 0.4s;
 }
+
+/* Additional styling if necessary (for the rest of your CSS) */
+
 
 
 /* Transition applied to all elements inside the button */

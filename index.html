@@ -35,8 +35,6 @@
           Receivables <span id="arrow-wi-receivables" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-receivables-subtopics">
-          <li><a href="pdfs/working_instructions/receivables/How to Approve AR Adjustments .pdf" target="_blank">How to Approve AR Adjustments</a></li>
-          <!-- Dynamically list approved Receivables files -->
           <div id="receivables-files"></div>
         </ul>
       </li>
@@ -47,12 +45,11 @@
           Payables <span id="arrow-wi-payables" class="dropdown-arrow">▼</span>
         </a>
         <ul class="nested-subtopics" id="wi-payables-subtopics">
-          <!-- Dynamically load approved files -->
           <div id="payables-files"></div>
         </ul>
       </li>
 
-      <!-- Other Sections (General Ledger, Purchasing, etc.)-->
+      <!-- General Ledger Section -->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-gl-subtopics','arrow-wi-gl'); event.stopPropagation();">
           General Ledger <span id="arrow-wi-gl" class="dropdown-arrow">▼</span>
@@ -62,6 +59,7 @@
         </ul>
       </li>
 
+      <!-- Purchasing Section -->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-purchasing-subtopics','arrow-wi-purchasing'); event.stopPropagation();">
           Purchasing <span id="arrow-wi-purchasing" class="dropdown-arrow">▼</span>
@@ -71,6 +69,7 @@
         </ul>
       </li>
 
+      <!-- Oracle Guides Section -->
       <li>
         <a href="#" onclick="toggleSubTopics('wi-oracle-guides-subtopics','arrow-wi-oracle-guides'); event.stopPropagation();">
           Oracle Guides <span id="arrow-wi-oracle-guides" class="dropdown-arrow">▼</span>
@@ -115,17 +114,7 @@
     </ul>
   </div>
 
-  <!-- Add File Section with Password Protection -->
-  <div id="adminPasscodeSection">
-    <div class="group">
-      <svg class="icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" stroke-linejoin="round" stroke-linecap="round"></path>
-      </svg>
-      <input class="input" type="password" id="adminPasscode" placeholder="password">
-      <button onclick="verifyPasscode()">Enter</button>
-    </div>
-  </div>
-
+  <!-- ====================== ADD FILE SECTION ====================== -->
   <div id="addFileContainer" style="display: none;">
     <button type="button" class="button" onclick="toggleAddFileForm()">
       <span class="button__text">Add File</span>
@@ -135,63 +124,39 @@
       <input type="text" id="fileTitle" placeholder="File Title">
       <select id="fileCategory">
         <option value="wi-receivables-subtopics">Receivables</option>
-        <option value="wi-payables-subtopics">Payables</option>
-        <option value="wi-gl-subtopics">General Ledger</option>
-        <option value="wi-purchasing-subtopics">Purchasing</option>
-        <option value="wi-oracle-guides-subtopics">Oracle Guides</option>
-        <option value="so-sop-subtopics">SOP</option>
-        <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
-        <option value="pf-process-flow-subtopics">Process Flow</option>
       </select>
       <button class="upload-btn" onclick="uploadFile()">Upload</button>
     </div>
   </div>
 
+  <!-- ====================== ADMIN PASSCODE ====================== -->
+  <div id="adminPasscodeSection">
+    <div class="group">
+      <input class="input" type="password" id="adminPasscode" placeholder="password">
+      <button onclick="verifyPasscode()">Enter</button>
+    </div>
+  </div>
+
   <script>
-    function toggleSubTopics(contentId, arrowId) {
-      var subtopics = document.getElementById(contentId);
-      var arrow = document.getElementById(arrowId);
-      subtopics.classList.toggle("show");
-      arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
-    }
-
-    function uploadFile() {
-      var fileInput = document.getElementById('newFileInput');
-      var file = fileInput.files[0];
-      var fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
-      var fileCategory = document.getElementById('fileCategory').value;
-
-      if (!file) {
-        alert('Please select a file.');
-        return;
+    // Function to verify the admin passcode
+    function verifyPasscode() {
+      var passcodeInput = document.getElementById('adminPasscode');
+      var passcode = passcodeInput.value.trim();
+      if (passcode === "helpdesk123") {
+        document.getElementById('addFileContainer').style.display = 'block';
+        document.getElementById('adminPasscodeSection').style.display = 'none';
+      } else {
+        alert("Incorrect passcode! Please try again.");
       }
-
-      var formData = new FormData();
-      formData.append('uploadedFile', file);
-      formData.append('fileTitle', fileTitle);
-      formData.append('fileCategory', fileCategory);
-
-      fetch('https://helpdeskpharmacy.infinityfreeapp.com/upload_file.php', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.text())
-      .then(data => {
-        alert(data);
-      })
-      .catch(error => console.error('Error:', error));
-
-      fileInput.value = "";
-      document.getElementById('fileTitle').value = "";
     }
 
+    // Fetch approved files for subtopics
     function fetchApprovedFiles(subtopic, containerId) {
       fetch('https://helpdeskpharmacy.infinityfreeapp.com/getApprovedFiles.php?subtopic=' + subtopic)
         .then(response => response.json())
         .then(data => {
           const container = document.getElementById(containerId);
           container.innerHTML = '';
-
           data.forEach(file => {
             const listItem = document.createElement('li');
             const link = document.createElement('a');
@@ -205,8 +170,39 @@
         .catch(error => console.error('Error fetching files:', error));
     }
 
+    // File upload function
+    function uploadFile() {
+      const fileInput = document.getElementById('newFileInput');
+      const file = fileInput.files[0];
+      const fileTitle = document.getElementById('fileTitle').value || (file ? file.name : 'New File');
+      const fileCategory = document.getElementById('fileCategory').value;
+
+      if (!file) {
+        alert('Please select a file.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('uploadedFile', file);
+      formData.append('fileTitle', fileTitle);
+      formData.append('fileCategory', fileCategory);
+
+      fetch('https://helpdeskpharmacy.infinityfreeapp.com/upload_file.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        alert(data);
+      })
+      .catch(error => console.error('Error uploading file:', error));
+
+      fileInput.value = "";
+      document.getElementById('fileTitle').value = "";
+    }
+
     window.onload = function() {
-      fetchApprovedFiles("wi-receivables-subtopics", "receivables-files");
+      fetchApprovedFiles('wi-receivables-subtopics', 'receivables-files');
       fetchApprovedFiles("wi-payables-subtopics", "payables-files");
       fetchApprovedFiles("wi-gl-subtopics", "gl-files");
       fetchApprovedFiles("wi-purchasing-subtopics", "purchasing-files");
@@ -215,17 +211,6 @@
       fetchApprovedFiles("fs-functional-specifications-subtopics", "functional-specifications-files");
       fetchApprovedFiles("pf-process-flow-subtopics", "process-flow-files");
     };
-
-    function verifyPasscode() {
-      var passcodeInput = document.getElementById('adminPasscode');
-      var passcode = passcodeInput.value.trim();
-      if (passcode === "helpdesk123") {
-        document.getElementById('addFileContainer').style.display = 'block';
-        document.getElementById('adminPasscodeSection').style.display = 'none';
-      } else {
-        alert("Incorrect passcode! Please try again.");
-      }
-    }
   </script>
 </body>
 </html>
