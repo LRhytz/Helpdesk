@@ -1,5 +1,4 @@
 <?php
-// upload_file.php
 header("Access-Control-Allow-Origin: https://helpdeskpharmacy.infinityfreeapp.com"); // Update to match your actual domain
 
 $adminEmail = "smjbolotaulo@gmail.com";  // Admin email for approval notifications
