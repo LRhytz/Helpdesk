@@ -16,11 +16,14 @@
   border: 2px solid #00BFA6;  /* Solid border instead of dashed */
   background-color: #00BFA6;
   text-transform: uppercase;
-  letter-spacing: 1px;  /* Slightly reduced spacing for a cleaner look */
+  letter-spacing: 1px;  /* Adjusted spacing for a cleaner look */
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: all 0.4s;
   font-size: 16px;  /* Adjusted font size */
+  width: auto;      /* Let the button size itself based on content */
+  text-align: center;
+  padding: 12px 20px; /* Adjusted padding for better fit */
 }
 
 /* Additional styling if necessary (for the rest of your CSS) */
@@ -44,10 +47,12 @@
   color: #fff;
   font-weight: 600;
   font-size: 14px;
-  text-align: center;  /* Ensures text is centered */
+  text-align: center;  /* Ensure the text is centered */
 }
 
-
+.button:active .button__text {
+  color: #006e52; /* Darker shade for active state */
+}
 /* Button icon container: added vendor prefixes for flex */
 .button .button__icon {
   position: absolute;
