@@ -113,21 +113,20 @@
       <div id="process-flow-files"></div>
     </ul>
   </div>
-
   <!-- ====================== ADD FILE SECTION ====================== -->
-  <!-- ====================== ADD FILE SECTION ====================== -->
+<!-- ====================== ADD FILE SECTION ====================== -->
 <div id="addFileContainer" style="display: none;">
   <button type="button" class="button" onclick="toggleAddFileForm()">
     <span class="button__text">Add File</span>
   </button>
-  <div id="addFileForm" style="display: none;">
-    <input type="file" id="newFileInput">
-    <input type="text" id="fileTitle" placeholder="File Title">
-    <select id="fileCategory">
+  <div id="addFileForm" style="display: none; margin-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <input type="file" id="newFileInput" style="flex: 1; padding: 10px; border-radius: 4px;">
+    <input type="text" id="fileTitle" placeholder="File Title" style="flex: 1; padding: 10px; border-radius: 4px;">
+    <select id="fileCategory" style="flex: 1; padding: 10px; border-radius: 4px;">
       <option value="wi-receivables-subtopics">Receivables</option>
       <!-- Add more options if needed -->
     </select>
-    <button class="upload-btn" onclick="uploadFile()">Upload</button>
+    <button class="upload-btn" onclick="uploadFile()" style="padding: 10px 20px; background-color: #3aa856; color: white; border-radius: 4px; cursor: pointer;">Upload</button>
   </div>
 </div>
   <!-- ====================== ADMIN PASSCODE ====================== -->

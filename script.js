@@ -74,14 +74,14 @@ function fetchApprovedFiles(subtopic, containerId) {
   }
 
   // Toggle the visibility of the Add File form
-function toggleAddFileForm() {
-  var form = document.getElementById('addFileForm');
-  if (form.style.display === 'none' || form.style.display === '') {
-    form.style.display = 'block'; // Show the form
-  } else {
-    form.style.display = 'none';  // Hide the form
+  function toggleAddFileForm() {
+    var form = document.getElementById('addFileForm');
+    if (form.style.display === 'none' || form.style.display === '') {
+      form.style.display = 'flex'; // Show the form as a flex container
+    } else {
+      form.style.display = 'none';  // Hide the form
+    }
   }
-}
 
   
   // Initial setup for approved files list based on subtopic
