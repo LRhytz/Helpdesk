@@ -126,10 +126,10 @@
     </button>
 
     <!-- File Upload Form hidden initially -->
-    <div id="addFileForm" style="display: none; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
-      <input type="file" id="newFileInput" style="flex: 1; padding: 10px; border-radius: 4px;">
-      <input type="text" id="fileTitle" placeholder="File Title" style="flex: 1; padding: 10px; border-radius: 4px;">
-      <select id="fileCategory" style="flex: 1; padding: 10px; border-radius: 4px;">
+    <div id="addFileForm" style="display: none; margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+      <input type="file" id="newFileInput" style="padding: 8px; border-radius: 4px; width: 100%; max-width: 300px;">
+      <input type="text" id="fileTitle" placeholder="File Title" style="padding: 8px; border-radius: 4px; width: 100%; max-width: 300px;">
+      <select id="fileCategory" style="padding: 8px; border-radius: 4px; width: 100%; max-width: 300px;">
         <option value="wi-receivables-subtopics">Receivables (Working Instructions)</option>
         <option value="wi-payables-subtopics">Payables (Working Instructions)</option>
         <option value="wi-gl-subtopics">General Ledger (Working Instructions)</option>
@@ -139,7 +139,7 @@
         <option value="fs-functional-specifications-subtopics">Functional Specifications</option>
         <option value="pf-process-flow-subtopics">Process Flow</option>
       </select>
-      <button class="upload-btn" onclick="uploadFile()" style="padding: 10px 20px; background-color: #3aa856; color: white; border-radius: 4px; cursor: pointer;">Upload</button>
+      <button class="upload-btn" onclick="uploadFile()" style="padding: 8px 20px; background-color: #3aa856; color: white; border-radius: 4px; cursor: pointer;">Upload</button>
     </div>
   </div>
 
@@ -157,9 +157,6 @@
       var passcodeInput = document.getElementById('adminPasscode');
       var passcode = passcodeInput.value.trim(); // Trims any leading/trailing spaces
 
-      console.log("Entered password: ", passcode); // Log the entered password for debugging
-
-      // Ensure correct password check
       if (passcode === "helpdesk123") {
         // If correct, display the file upload section
         document.getElementById('addFileContainer').style.display = 'block';
@@ -168,26 +165,6 @@
         // If incorrect, display an alert or an error message
         alert("Incorrect passcode! Please try again.");
       }
-    }
-
-    // Fetch approved files for subtopics
-    function fetchApprovedFiles(subtopic, containerId) {
-      fetch('https://helpdeskpharmacy.infinityfreeapp.com/getApprovedFiles.php?subtopic=' + subtopic)
-        .then(response => response.json())
-        .then(data => {
-          const container = document.getElementById(containerId);
-          container.innerHTML = '';
-          data.forEach(file => {
-            const listItem = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = file.fileUrl;
-            link.target = '_blank';
-            link.innerText = file.displayName;
-            listItem.appendChild(link);
-            container.appendChild(listItem);
-          });
-        })
-        .catch(error => console.error('Error fetching files:', error));
     }
 
     // File upload function

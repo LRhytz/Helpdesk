@@ -43,35 +43,41 @@
 }
 
 /* ===================== ADD FILE FORM STYLES ===================== */
+#addFileContainer {
+  display: none;
+  padding: 20px;
+  width: 60%;  /* Limit the width to 60% */
+  margin: 0 auto; /* Center the container */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 #addFileForm {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  gap: 10px;  /* Adds spacing between each element */
+  flex-direction: column; /* Stack items vertically */
+  gap: 10px; /* Space between elements */
+  width: 100%;  /* Make sure form occupies the full width of its container */
 }
 
 #addFileForm input,
 #addFileForm select {
-  flex: 1;  /* Ensures equal space distribution */
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-/* Form inputs */
-#addFileForm input,
-#addFileForm select,
-#addFileForm button.upload-btn {
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+  width: 100%; /* Ensure form elements take up 100% width */
+  max-width: 400px; /* Maximum width of the form elements */
+  margin: 0 auto; /* Center the form elements */
 }
 
 #addFileForm button.upload-btn {
   background-color: #3aa856;
   color: white;
+  border-radius: 4px;
   cursor: pointer;
+  width: 100%; /* Make button take full width */
+  max-width: 400px; /* Limit width */
+  padding: 12px;
+  margin: 0 auto;
 }
 
 #addFileForm button.upload-btn:hover {
