@@ -72,6 +72,17 @@ function fetchApprovedFiles(subtopic, containerId) {
     subtopics.classList.toggle("show");
     arrow.textContent = subtopics.classList.contains("show") ? "▲" : "▼";
   }
+
+  // Toggle the visibility of the Add File form
+function toggleAddFileForm() {
+  var form = document.getElementById('addFileForm');
+  if (form.style.display === 'none' || form.style.display === '') {
+    form.style.display = 'block'; // Show the form
+  } else {
+    form.style.display = 'none';  // Hide the form
+  }
+}
+
   
   // Initial setup for approved files list based on subtopic
   window.onload = function() {
