@@ -402,39 +402,32 @@
   formData.append('fileCategory', fileCategory);
 
   // If fetch is available, use it; otherwise, use XMLHttpRequest
-  if (window.fetch) {
-    fetch('upload.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then(function(response) { 
-      return response.text(); 
-    })
-    .then(function(data) {
-      alert(data);
-      // Optionally reload the page to see new files (once approved)
-      // location.reload();
-    })
-    .catch(function(error) {
-      console.error('Error:', error);
-      alert('Error uploading file.');
-    });
-  } else {
-    // Fallback for IE using XMLHttpRequest
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'upload.php', true);
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        alert(xhr.responseText);
-      } else {
-        alert('Error uploading file.');
-      }
-    };
-    xhr.onerror = function() {
-      alert('Error uploading file.');
-    };
-    xhr.send(formData);
-  }
+  function fetchApprovedFiles(subtopic, containerId) {
+      fetch(`http://helpdeskrpharmacy.kesug.com/getApprovedFiles.php?subtopic=${subtopic}`)
+        .then(response => response.json())
+        .then(data => {
+          const fileListContainer = document.getElementById(containerId);
+          fileListContainer.innerHTML = ''; // Clear the list before adding new items
+
+          if (data.length === 0) {
+            fileListContainer.innerHTML = '<p>No approved files available.</p>';
+          } else {
+            data.forEach(file => {
+              const listItem = document.createElement('li');
+              const link = document.createElement('a');
+              link.href = file.fileUrl; // Use the file URL from the API
+              link.target = '_blank';
+              link.innerText = file.displayName;
+              listItem.appendChild(link);
+              fileListContainer.appendChild(listItem);
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching files:', error);
+        });
+    }
+
 
   // Reset inputs
   fileInput.value = "";

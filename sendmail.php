@@ -2,10 +2,9 @@
 // sendmail.php
 // This file sends an email using PHPMailer with Gmail SMTP settings.
 
-require 'C:/xampp/PHPMailer-6.9.3/src/PHPMailer.php';
-require 'C:/xampp/PHPMailer-6.9.3/src/SMTP.php';
-require 'C:/xampp/PHPMailer-6.9.3/src/Exception.php';
-
+require 'libs/PHPMailer.php';
+require 'libs/SMTP.php';
+require 'libs/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -22,14 +21,14 @@ try {
     // ==== Gmail SMTP Settings ====
     $mail->Host       = 'smtp.gmail.com';             // Gmail SMTP server
     $mail->SMTPAuth   = true;                         // Enable SMTP authentication
-    $mail->Username   = 'smjbolotaulo@gmail.com';         // Replace with your Gmail address
-    $mail->Password   = 'dpehuhlskyolzseu';        // Replace with your Gmail App Password
+    $mail->Username   = 'smjbolotaulo@gmail.com';     // Replace with your Gmail address
+    $mail->Password   = 'dpehuhlskyolzseu';           // Replace with your Gmail App Password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use TLS encryption
     $mail->Port       = 587;                          // TCP port for TLS
 
     // Set sender and recipient information
-    $mail->setFrom('smjbolotaulo@gmail.com', 'Your Name');
-    $mail->addAddress('smjbolotaulo@gmail.com', 'Recipient Name');  // Replace with the recipient's details
+    $mail->setFrom('smjbolotaulo@gmail.com', 'Help Desk');
+    $mail->addAddress('smjbolotaulo@gmail.com', 'Admin'); // Replace with the recipient's details (admin email)
 
     // Set email format to HTML and add content
     $mail->isHTML(true);

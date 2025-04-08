@@ -1,19 +1,16 @@
 <?php
 // process_approval.php
-header("Access-Control-Allow-Origin: http://localhost/Helpdesk/");
+header("Access-Control-Allow-Origin: https://helpdeskpharmacy.infinityfreeapp.com"); // Update to match your actual domain
 
 // 1) Place your `use` statements at the top level, outside any blocks:
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// 2) Include the PHPMailer files either here or inside the approval block,
-//    but the `use` lines must remain at top level.
-require 'C:/xampp/PHPMailer-6.9.3/src/PHPMailer.php';
-require 'C:/xampp/PHPMailer-6.9.3/src/SMTP.php';
-require 'C:/xampp/PHPMailer-6.9.3/src/Exception.php';
+// 2) Include the PHPMailer files (make sure PHPMailer is uploaded to the server)
+require 'libs/PHPMailer.php';
+require 'libs/SMTP.php';
+require 'libs/Exception.php';
 
-
-// DEBUG FLAG (set to true for additional debugging output)
 $debug = false;
 if ($debug) {
     echo "<pre>GET parameters received:\n" . print_r($_GET, true) . "</pre>";
@@ -33,7 +30,6 @@ $token  = $_GET['token'];
 
 $tokensData = json_decode(file_get_contents($tokensFile), true) ?: [];
 
-// Find the entry
 $entryIndex = null;
 foreach ($tokensData as $index => $entry) {
     if ($entry['token'] === $token) {
@@ -71,14 +67,11 @@ if ($action === 'approve') {
         // Send email using PHPMailer
         $mail = new PHPMailer(true);
         try {
-            //$mail->SMTPDebug = 2;
-            //$mail->Debugoutput = 'html';
-            
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'smjbolotaulo@gmail.com';
-            $mail->Password   = 'dpehuhlskyolzseu';
+            $mail->Username   = 'smjbolotaulo@gmail.com';  // Gmail address
+            $mail->Password   = 'dpehuhlskyolzseu';        // Gmail App Password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
 
@@ -111,3 +104,4 @@ if ($action === 'approve') {
 unset($tokensData[$entryIndex]);
 $tokensData = array_values($tokensData);
 file_put_contents($tokensFile, json_encode($tokensData, JSON_PRETTY_PRINT));
+?>

@@ -4,8 +4,7 @@
 // It is hosted on your PHP-enabled server.
 
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: http://localhost/Helpdesk/");  // Update to match your local XAMPP environment
-  // Update to match your local XAMPP environment
+header("Access-Control-Allow-Origin: https://helpdeskpharmacy.infinityfreeapp.com"); // Update to match your actual domain
 
 if (!isset($_GET['subtopic'])) {
     echo json_encode([]);
@@ -13,7 +12,7 @@ if (!isset($_GET['subtopic'])) {
 }
 
 $subtopic = $_GET['subtopic'];
-$dir = "uploads/$subtopic/"; // Update this path to match your local directory structure
+$dir = "uploads/$subtopic/"; // Make sure this path matches the folder structure on InfinityFree
 
 if (!is_dir($dir)) {
     echo json_encode([]);
@@ -27,7 +26,7 @@ foreach ($files as $file) {
     $result[] = [
         "filename" => $file,
         "displayName" => $displayName,
-        "fileUrl" => "http://localhost/Helpdesk/$dir$file"  // Update the URL for local access
+        "fileUrl" => "https://helpdeskpharmacy.infinityfreeapp.com/$dir$file"  // Update URL to reflect the InfinityFree structure
     ];
 }
 
